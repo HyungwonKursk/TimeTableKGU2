@@ -4,6 +4,7 @@ using TimeTableKGU.Models;
 using TimeTableKGU.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using static TimeTableKGU.Views.AuthorizationPage;
 
 namespace TimeTableKGU.DataBase
 {
@@ -36,9 +37,19 @@ namespace TimeTableKGU.DataBase
         /// </summary>
         public static void LoadAll()
         {
-            TimeTableData.TimeTables = LoadAllTimeTable();
-            //StudentData sD = new StudentData();
-            
+            if (!isEmptyStudent())
+            {
+                StudentData.Students = LoadAllStudent();
+               ClientControls.CurrentUser = "Студент";
+                TimeTableData.TimeTables = LoadAllTimeTable();
+            }
+            if (!isEmptyTeacher())
+            {
+                StudentData.Students = LoadAllStudent();
+                ClientControls.CurrentUser = "Студент";
+                TimeTableData.TimeTables = LoadAllTimeTable();
+            }
+
         }
         #region TimeTable
         public static void AddTimeTable(TimeTable timetable)
@@ -81,6 +92,12 @@ namespace TimeTableKGU.DataBase
         #endregion
 
         #region Student
+        public static bool isEmptyStudent()
+        {
+            if (db.Students.Count() == 0)
+                return true;
+            else return false;
+        }
         public static void AddStudent(Student student)
         {
             if (student == null) return;
@@ -103,6 +120,12 @@ namespace TimeTableKGU.DataBase
         #endregion
 
         #region Teacher
+        public static bool isEmptyTeacher()
+        {
+            if (db.Teachers.Count() == 0)
+                return true;
+            else return false;
+        }
         public static void AddTeacher(Teacher teacher)
         {
             if (teacher == null) return;

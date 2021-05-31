@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using TimeTableKGU.Models;
 
 namespace TimeTableKGU.Web.Services
 {
@@ -12,62 +13,33 @@ namespace TimeTableKGU.Web.Services
     {
         const string Url = WebData.ADRESS + "";
 
-        /// <summary>
-        /// Запрос на авторизацию пользователя в системе
-        /// </summary>
-        /// <param name="login">Логин пользователя</param>
-        /// <param name="pass"> Пароль</param>
-        /// <returns>Id,Login,Name пользователя в случае верных данных, иначе NULL</returns>
-        public async Task<Dictionary<string, string>> Authrization(string login, string pass)
-        {
-            Dictionary<string, string> user = new Dictionary<string, string>();
-            user.Add("Login", login);
-            user.Add("Pass", pass);
-
-            HttpClient client = WebData.GetClient();
-
-            HttpResponseMessage response = await client.PostAsync(Url + "/PostAuthorization",
-                                new StringContent(
-                                    JsonConvert.SerializeObject(user),
-                                    Encoding.UTF8, "application/json"));
-
-            if (response.StatusCode != HttpStatusCode.OK)
-                return null;
-
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(
-               await response.Content.ReadAsStringAsync());
-        }
-
-        /// <summary>
-        /// Запрос системе на регистрацию нового пользователя
-        /// </summary>
-        /// <param name="name">Имя</param>
-        /// <param name="login">Логин </param>
-        /// <param name="pass">Пароль</param>
-        /// <returns>Id,Login,Name пользователя в случае верных данных, иначе NULL</returns>
-        public async Task<Dictionary<string, string>> RegisterStudent( string login, string pass,int group,
+        public async Task<Student> RegisterStudent(string login, string pass, int group,
             int sub_group, string name)
         {
-            Dictionary<string, string> user = new Dictionary<string, string>();
-
-            user.Add("Login", login);
-            user.Add("Pass", pass);
-            user.Add("Group", Convert.ToString(group));
-            user.Add("SubGr", Convert.ToString(sub_group));
-            user.Add("Name", name);
-
-
             HttpClient client = WebData.GetClient();
-            HttpResponseMessage response = await client.PostAsync(Url + "/PostRegister",
-                                new StringContent(
-                                    JsonConvert.SerializeObject(user),
-                                    Encoding.UTF8, "application/json"));
-
-            if (response.StatusCode != HttpStatusCode.OK)
-                return null;
-
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(
-               await response.Content.ReadAsStringAsync());
+            string result = await client.GetStringAsync(Url + "registerapi/" + login + "/" + pass + "/" +
+                group + "/" + sub_group + "/" + name);
+            return JsonConvert.DeserializeObject<Student>(result);
+        }
+        public async Task<Student> AuthrizationStudent(string login, string pass)
+        {
+            HttpClient client = WebData.GetClient();
+            string result = await client.GetStringAsync(Url + "registerapi/author/student/" + login + "/" + pass);
+            return JsonConvert.DeserializeObject<Student>(result);
+        }
+        public async Task<Teacher> RegisterTeacher(string login, string pass, string pos,
+            string depart, string name)
+        {
+            HttpClient client = WebData.GetClient();
+            string result = await client.GetStringAsync(Url + "registerapi/regTeach/" + login + "/" + pass + "/" +
+                pos + "/" + depart + "/" + name);
+            return JsonConvert.DeserializeObject<Teacher>(result);
+        }
+        public async Task<Teacher> AuthrizationTeacher(string login, string pass)
+        {
+            HttpClient client = WebData.GetClient();
+            string result = await client.GetStringAsync(Url + "registerapi/author/teacher/" + login + "/" + pass);
+            return JsonConvert.DeserializeObject<Teacher>(result);
         }
     }
 }

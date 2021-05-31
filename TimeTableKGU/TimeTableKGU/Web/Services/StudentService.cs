@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using TimeTableKGU.Models;
 
 namespace TimeTableKGU.Web.Services
 {
-    class GroupService
+    class StudentService
     {
-        const string Url = WebData.ADRESS + "api/GroupApi";
+        const string Url = WebData.ADRESS + "studentsapi/";
 
         // получаем список групп
-        public async Task<List<int>> GetNumbersOfGroups()
+        public async Task<List<string>> GetStudents(int? group)
         {
             HttpClient client = WebData.GetClient();
-            string result = await client.GetStringAsync(Url);
-            return JsonConvert.DeserializeObject<List<int>>(result);
+            string result = await client.GetStringAsync(Url + group);
+            return JsonConvert.DeserializeObject<List<string>>(result);
         }
     }
 }
