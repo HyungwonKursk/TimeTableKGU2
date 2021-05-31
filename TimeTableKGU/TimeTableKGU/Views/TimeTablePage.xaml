@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeTableKGU.Views.TimeTablePage">
+    <ContentPage.Content>
+        <StackLayout x:Name="stackLayout">
+            <Frame BackgroundColor="#2196F3" Padding="12" CornerRadius="0">
+                <Picker x:Name="picker" TextColor="White" SelectedIndexChanged="picker_SelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>Числитель</x:String>
+                        <x:String>Знаменатель</x:String>
+                        
+                    </Picker.Items>
+                </Picker>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
