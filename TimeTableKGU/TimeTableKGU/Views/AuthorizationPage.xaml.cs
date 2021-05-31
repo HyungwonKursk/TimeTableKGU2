@@ -18,8 +18,10 @@ namespace TimeTableKGU.Views
         }
         protected override void OnAppearing()
         {
-          
+            if (ClientControls.CurrentUser == null || ClientControls.CurrentUser == "")
                 GetLoginPage();
+            else
+                GetClientPage();
 
         }
     }

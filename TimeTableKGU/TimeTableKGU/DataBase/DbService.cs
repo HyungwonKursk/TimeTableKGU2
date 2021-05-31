@@ -18,7 +18,7 @@ namespace TimeTableKGU.DataBase
         public static void RefrashDb(bool delete = false)
         {
             // Удаляем бд, если она существуеты
-            if (delete)
+            //if (delete)
                 db.Database.EnsureDeleted();
 
             // Создаем бд, если она отсутствует

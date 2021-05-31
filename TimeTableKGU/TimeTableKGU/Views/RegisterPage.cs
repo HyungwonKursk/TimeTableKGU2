@@ -9,6 +9,7 @@ using TimeTableKGU.Interface;
 using TimeTableKGU.Web;
 using TimeTableKGU.Web.Services;
 using TimeTableKGU.DataBase;
+using TimeTableKGU.Data;
 
 namespace TimeTableKGU.Views
 {
@@ -27,7 +28,7 @@ namespace TimeTableKGU.Views
             public Picker SubPick { get; set; }
             public Picker GroupPick { get; set; }
             public Entry DepartBox { get; set; }
-
+            public Entry PosBox { get; set; }
             public RegisrationContrioolers()
             {
 
@@ -55,13 +56,10 @@ namespace TimeTableKGU.Views
                 TypePick.Items.Add("Преподаватель");
 
                 GroupPick = new Picker { Title = "Группа", TextColor = Color.Black };
-                GroupPick.Items.Add("113");
-                GroupPick.Items.Add("213");
-                GroupPick.Items.Add("313");
-                GroupPick.Items.Add("413");
+
                 SubPick = new Picker { Title = "Подгруппа", TextColor = Color.Black };
-                GroupPick.Items.Add("1");
-                GroupPick.Items.Add("2");
+                SubPick.Items.Add("1");
+                SubPick.Items.Add("2");
 
 
                 LoginBox = new Entry
@@ -118,6 +116,17 @@ namespace TimeTableKGU.Views
                     Style = Device.Styles.BodyStyle,
                     HorizontalOptions = LayoutOptions.Fill
                 };
+                PosBox = new Entry
+                {
+                    Text = "",
+                    Placeholder = "Должность",
+                    Keyboard = Keyboard.Default,
+                    TextColor = Color.Black,
+                    PlaceholderColor = Color.Black,
+                    ClearButtonVisibility = ClearButtonVisibility.WhileEditing,
+                    Style = Device.Styles.BodyStyle,
+                    HorizontalOptions = LayoutOptions.Fill
+                };
                 LoginBtn = new Button
                 {
                     Text = "Уже есть учетная запись",
@@ -133,6 +142,7 @@ namespace TimeTableKGU.Views
                 if (TypePick.Items[TypePick.SelectedIndex] == "Студент")
                 {
 
+                    stackLayout.Children.Remove(PosBox);
                     stackLayout.Children.Remove(DepartBox);
                     stackLayout.Children.Remove(LoginBtn);
                     stackLayout.Children.Remove(RegisBtn);
@@ -148,6 +158,7 @@ namespace TimeTableKGU.Views
                     stackLayout.Children.Remove(LoginBtn);
                     stackLayout.Children.Remove(RegisBtn);
                     stackLayout.Children.Add(DepartBox);
+                    stackLayout.Children.Add(PosBox);
                 }
 
                 stackLayout.Children.Add(RegisBtn);
@@ -178,11 +189,16 @@ namespace TimeTableKGU.Views
 
         public RegisrationContrioolers RegisrationPage;
 
-        public void GetRegistrationPage()
+        public async void GetRegistrationPage()
         {
             Title = "Зарегистрироваться";
 
             RegisrationPage = new RegisrationContrioolers();
+            var group = await new GroupService().GetNumbersOfGroups();
+
+            for (int i = 0; i < group.Count; i++)
+                RegisrationPage.GroupPick.Items.Add(group[i].ToString());
+
             RegisrationPage.SetContent();
             RegisrationPage.RegisBtn.Clicked += RegistrUser;
             RegisrationPage.LoginBtn.Clicked += ToLoginPage;
@@ -191,14 +207,12 @@ namespace TimeTableKGU.Views
         }
         public async void RegistrUser(object sender, EventArgs e)
         {
-            UserService userService = new UserService();
-
 
             if (RegisrationPage.TypePick.Items[RegisrationPage.TypePick.SelectedIndex] == "Студент")
             {
                 #region проверка введённых данных
                 if (RegisrationPage.NameBox.Text == "" || RegisrationPage.LoginBox.Text == "" ||
-                RegisrationPage.PasswBox.Text == "" || RegisrationPage.PasswCheckBox.Text == "" || RegisrationPage.GroupPick.SelectedIndex == -1)
+                RegisrationPage.PasswBox.Text == "" || RegisrationPage.PasswCheckBox.Text == "" || RegisrationPage.GroupPick.SelectedIndex == -1 )
                 {
                     DependencyService.Get<IToast>().Show("Не все поля заполнены"); return;
                 }
@@ -216,20 +230,19 @@ namespace TimeTableKGU.Views
                 if (connect == false) return;
 
                 // отправка данных регистрации на сервер    
-                var user = await userService.
+                var user = await new UserService().
                         RegisterStudent(RegisrationPage.LoginBox.Text, RegisrationPage.PasswBox.Text,
-                        Convert.ToInt16(RegisrationPage.GroupPick.Items[RegisrationPage.GroupPick.SelectedIndex]),
-                        Convert.ToInt16(RegisrationPage.GroupPick.Items[RegisrationPage.GroupPick.SelectedIndex]), RegisrationPage.NameBox.Text);
+                        Convert.ToInt32(RegisrationPage.GroupPick.Items[RegisrationPage.GroupPick.SelectedIndex]),
+                        Convert.ToInt32(RegisrationPage.SubPick.Items[RegisrationPage.SubPick.SelectedIndex]),
+                        RegisrationPage.NameBox.Text);
                 // если сервер вернул данные пользователя - загрузить в пользователя
                 if (user != null)
                 {
-                    Student st = new Student( user["Login"], user["Password"],
-                        Int32.Parse(user["Group"]), Int32.Parse(user["Subgroup"]), user["Full_Name"],false, Int32.Parse(user["StudentId"]));
-                    // Client.setClient(Int32.Parse(client["Id"]), client["Name"], client["Login"]);
-                    DbService.AddStudent(st); // сохранили пользователя
-                                                                
-
-                    //GetClientPage();
+                    var timetable = await new TimeTableService().GetStudentTimeTable(user.Group,user.Subgroup);
+                    TimeTableData.TimeTables = timetable;
+                    DbService.AddTimeTable(timetable);
+                    DbService.AddStudent(user); // сохранили пользователя
+                    ClientControls.CurrentUser = "Студент";
                     return;
                 }
                 else
@@ -238,7 +251,67 @@ namespace TimeTableKGU.Views
                     return;
                 }
             }
+            if (RegisrationPage.TypePick.Items[RegisrationPage.TypePick.SelectedIndex] == "Преподаватель")
+            {
+                #region проверка введённых данных
+                if (RegisrationPage.NameBox.Text == "" || RegisrationPage.LoginBox.Text == "" ||
+                RegisrationPage.PasswBox.Text == "" || RegisrationPage.PasswCheckBox.Text == "" || RegisrationPage.DepartBox.Text == "" || RegisrationPage.PosBox.Text == "")
+                {
+                    DependencyService.Get<IToast>().Show("Не все поля заполнены"); return;
+                }
 
+                if (RegisrationPage.PasswBox.Text != RegisrationPage.PasswCheckBox.Text)
+                {
+                    DependencyService.Get<IToast>().Show("Пароли не совпадают"); return;
+                }
+
+
+                #endregion
+                bool connect = await WebData.CheckConnection();
+                if (connect == false) return;
+
+                //проверка занят ли логин
+                if (!(await new CheckService().GetCheckLogin(RegisrationPage.LoginBox.Text)))
+                {
+                    DependencyService.Get<IToast>().Show("Логин уже занят");
+                    RegisrationPage.LoginBox.Text = ""; return;
+                }
+
+                // отправка данных регистрации на сервер    
+                var user = await new UserService().
+                        RegisterTeacher(RegisrationPage.LoginBox.Text, RegisrationPage.PasswBox.Text,
+                        RegisrationPage.PosBox.Text,
+                        RegisrationPage.DepartBox.Text, RegisrationPage.NameBox.Text);
+                // если сервер вернул данные пользователя - загрузить в пользователя
+                if (user != null)
+                {
+                    var teachers = await new TeacherService().GetTeachers();
+                    int id = 0;
+                    var st = user.Full_Name.Split(' ');
+                    string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
+                    for (int i = 0; i < teachers.Count; i++)
+                    {
+                        if (teachers[i].full_name == name)
+                        {
+                            id = teachers[i].id_t;
+                            break;
+                        }
+                    }
+                    var timetable = await new TimeTableService().GetTeacherTimeTable(id);
+                    TimeTableData.TimeTables = timetable;
+                    DbService.AddTimeTable(timetable);
+                    DbService.AddTeacher(user); // сохранили пользователя
+                    ClientControls.CurrentUser = "Преподаватель";
+
+                    GetClientPage();
+                    return;
+                }
+                else
+                {
+                    await DisplayAlert("Ошибка", "Сервер не вернул данные", "OK");
+                    return;
+                }
+            }
 
 
 

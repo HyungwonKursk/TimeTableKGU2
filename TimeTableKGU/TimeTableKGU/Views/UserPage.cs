@@ -51,8 +51,8 @@ namespace TimeTableKGU.Views
         private void SettingBtn_Clicked(object sender, EventArgs e)
         {
 
-           // if (ClientControls.CurrentUser == "Студент")
-               // GetGroupPage();
+           if (ClientControls.CurrentUser == "Студент")
+               GetGroupPage();
 
 
         }
@@ -137,7 +137,7 @@ namespace TimeTableKGU.Views
             var tt = DbService.LoadAllTimeTable();
             DbService.RemoveTimeTable(tt);
             ClientPage = null;
-            //GetLoginPage();
+            GetLoginPage();
         }
     }
 }

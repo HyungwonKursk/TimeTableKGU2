@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TimeTableKGU.Data;
+using TimeTableKGU.DataBase;
 using TimeTableKGU.Interface;
 using TimeTableKGU.Web;
 using TimeTableKGU.Web.Services;
@@ -123,20 +125,41 @@ namespace TimeTableKGU.Views
 
             isLoading = true;
 
-            var user = await new UserService().Authrization(LoginPage.LoginBox.Text, LoginPage.PasswBox.Text);
-            if (user != null) // если сервер вернул данные пользователя - загрузить в пользователя
+            var userStudent = await new UserService().AuthrizationStudent(LoginPage.LoginBox.Text, LoginPage.PasswBox.Text);
+            var userTeacher = await new UserService().AuthrizationTeacher(LoginPage.LoginBox.Text, LoginPage.PasswBox.Text);
+            if (userStudent != null) // если сервер вернул данные пользователя - загрузить в пользователя
             {
-                /*Client.setClient(Int32.Parse(client["Id"]), client["Name"], client["Login"]);
-                DbService.SaveClient(Client.CurrentClient); // сохранили пользователя*/
-                //как настроим авторизацию придумать параметр для проверки
-                /*if (Int32.Parse(user["StudentId"])==null)
-                { 
-                    
-                }
-                else 
-                { }*/
+                DbService.AddStudent(userStudent); // сохранили пользователя
+                ClientControls.CurrentUser = "Студент";
                 isLoading = false;
-               // GetClientPage();
+                var timetable = await new TimeTableService().GetStudentTimeTable(userStudent.Group, userStudent.Subgroup);
+                TimeTableData.TimeTables = timetable;
+                DbService.AddTimeTable(timetable);
+                GetClientPage();
+                return;
+            }
+            else
+            if (userTeacher != null)
+            {
+                DbService.AddTeacher(userTeacher); // сохранили пользователя
+                ClientControls.CurrentUser = "Преподаватель";
+                isLoading = false;
+                var teachers = await new TeacherService().GetTeachers();
+                int id = 0;
+                var st = userTeacher.Full_Name.Split(' ');
+                string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
+                for (int i = 0; i < teachers.Count; i++)
+                {
+                    if (teachers[i].full_name == name)
+                    {
+                        id = teachers[i].id_t;
+                        break;
+                    }
+                }
+                var timetable = await new TimeTableService().GetTeacherTimeTable(id);
+                TimeTableData.TimeTables = timetable;
+                DbService.AddTimeTable(timetable);
+                GetClientPage();
                 return;
             }
             else
