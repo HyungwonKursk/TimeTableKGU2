@@ -102,8 +102,8 @@ namespace TimeTableKGU.Views
 
             LoginPage.LoginBtn.Clicked += LoginIn;
             LoginPage.RegisBtn.Clicked += ToRegistrationPage;
-
-            this.Content = LoginPage.SetContent();
+            this.Content = new ScrollView {Content= LoginPage.SetContent() };
+            //this.Content = LoginPage.SetContent();
         }
 
         private bool isLoading = false;

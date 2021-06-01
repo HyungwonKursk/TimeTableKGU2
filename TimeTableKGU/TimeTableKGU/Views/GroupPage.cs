@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TimeTableKGU.Data;
+using TimeTableKGU.DataBase;
 using TimeTableKGU.Web.Services;
 using Xamarin.Forms;
 
@@ -45,6 +46,8 @@ namespace TimeTableKGU.Views
 
         public async void Inisialize()
         {
+            if (StudentData.Students == null)
+                StudentData.Students = DbService.LoadAllStudent();
             var students = await new StudentService().GetStudents(StudentData.Students[0].Group);
             GroupPage.Students.ItemsSource = students;
         }

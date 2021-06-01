@@ -19,7 +19,7 @@ namespace TimeTableKGU.Web.Services
             string result = await client.GetStringAsync(Url+"api/TeachersApi");
             return JsonConvert.DeserializeObject<List<TeacherBD>>(result);
         }
-        public async Task<List<int>> SearchTeacher(int? id,string day)
+        public async Task<List<int>> SearchTeacher(int id,string day)
         {
             HttpClient client = WebData.GetClient();
             string result = await client.GetStringAsync(Url+ "teachersapi/" + id+"/"+day);

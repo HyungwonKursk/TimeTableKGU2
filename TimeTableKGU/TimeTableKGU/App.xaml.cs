@@ -21,7 +21,7 @@ namespace TimeTableKGU
             DbService.RefrashDb(false);
 
             // загрузить все данные из базы
-           //DbService.LoadAll();
+           DbService.LoadAll();
 
             MainPage = new AppShell();
            
