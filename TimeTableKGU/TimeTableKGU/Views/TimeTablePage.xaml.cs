@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using static TimeTableKGU.Views.AuthorizationPage;
 using TimeTableKGU.Interface;
 using TimeTableKGU.Data;
 using TimeTableKGU.Models;
@@ -23,6 +23,9 @@ namespace TimeTableKGU.Views
         public Button Thu { get; set; }
         public Button Fri { get; set; }
         public Button Sat { get; set; }
+        public Button Update { get; set; }
+        public Button Change { get; set; }
+
         public TimeTablePage()
         {
             InitializeComponent();
@@ -61,10 +64,56 @@ namespace TimeTableKGU.Views
             Thu = new Button { Text = "ЧЕТВЕРГ" };
             Fri = new Button { Text = "ПЯТНИЦА" };
             Sat = new Button { Text = "СУББОТА" };
+            Update = new Button { Text = "Обновить расписание" };
+            Change = new Button { Text="Изменить аудиторию"};
+ 
+            Update.Clicked += Update_Clicked;
+            Change.Clicked += Change_Clicked;
             ScrollView scrollView = new ScrollView { Content = grid };
             // Build the page.
             stackLayout.Children.Add(scrollView);
 
+        }
+
+        private void Change_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+
+        private async void Update_Clicked(object sender, EventArgs e)
+        {
+            var tt = DbService.LoadAllTimeTable();
+            DbService.RemoveTimeTable(tt);
+            List<TimeTable> timeTables = new List<TimeTable>();
+            if (ClientControls.CurrentUser == "Преподаватель")
+            {
+                var teacher = DbService.LoadAllTeacher();
+                var teachers = await new TeacherService().GetTeachers();
+                int id = 0;
+                var st = teacher[0].Full_Name.Split(' ');
+                string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
+                for (int i = 0; i < teachers.Count; i++)
+                {
+                    if (teachers[i].full_name == name)
+                    {
+                        id = teachers[i].id_t;
+                        break;
+                    }
+                }
+                timeTables = await new TimeTableService().GetTeacherTimeTable(id);
+                DbService.AddTimeTable(timeTables);
+                TimeTableData.TimeTables = timeTables;
+            }
+            else
+            {
+                    var student = DbService.LoadAllStudent();
+                    timeTables = await new TimeTableService().GetStudentTimeTable(student[0].Group, student[0].Subgroup);
+                    DbService.AddTimeTable(timeTables);
+                    TimeTableData.TimeTables = timeTables;
+                    
+            }
+
+            picker_SelectedIndexChanged(this, new EventArgs());
         }
 
         protected override void OnAppearing()
@@ -77,7 +126,8 @@ namespace TimeTableKGU.Views
         {
 
             if (TimeTableData.TimeTables.Count == 0) return;
-            int x = 0;int y = 0;
+
+             int x = 0; int y = 0;
 
             if (picker.SelectedIndex == -1)
             {
@@ -254,11 +304,6 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
 
-
-
-
-
-
             }
             else
             if (picker.Items[picker.SelectedIndex] == "Знаменатель")
@@ -398,6 +443,12 @@ namespace TimeTableKGU.Views
                     y++; x = 0;
                 }
                 #endregion
+                
+            }
+            grid.Children.Add(Update, x + 1, y);
+            if (ClientControls.CurrentUser == "Преподаватель")
+            {
+                grid.Children.Add(Change, x + 1, y+1);
             }
         }
     }

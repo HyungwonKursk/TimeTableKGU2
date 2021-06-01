@@ -27,5 +27,13 @@ namespace TimeTableKGU.Web.Services
             string result = await client.GetStringAsync(Url + teacherid);
             return JsonConvert.DeserializeObject<List<TimeTable>>(result);
         }
+
+        // изменяем аудиторию
+        public async Task<bool> ChangeRoom(int id_lesson,int new_room)
+        {
+            HttpClient client = WebData.GetClient();
+            string result = await client.GetStringAsync(Url + id_lesson+"/"+ new_room);
+            return JsonConvert.DeserializeObject<bool>(result);
+        }
     }
 }
