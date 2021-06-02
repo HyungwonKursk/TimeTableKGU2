@@ -71,9 +71,11 @@ namespace TimeTableKGU.Views
 
         private async void FindBtn_ClickedAsync(object sender, EventArgs e)
         {
+            labelMessage.Text = "";
             if (picker.Items[picker.SelectedIndex] == "Поиск преподавателя по ФИО")
             {
-                var teachers = await new TeacherService().GetTeachers();
+                
+               var teachers = await new TeacherService().GetTeachers();
                 int id = 0;
                 var st = NameBox.Text.Split(' ');
                 string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
@@ -108,12 +110,14 @@ namespace TimeTableKGU.Views
             header.Text = "Вы выбрали: " ;
             if (picker.Items[picker.SelectedIndex] == "Поиск преподавателя по ФИО")
             {
+                labelMessage.Text = "";
                 stackLayout.Children.Remove(FindBtn);
                 stackLayout.Children.Remove(labelMessage);
                 stackLayout.Children.Remove(TimeBox);
                 stackLayout.Children.Remove(labelText);
                 stackLayout.Children.Remove(DayPicker);
                 //labelMessage.Text = "Введите ФИО преподавателя";
+
                 stackLayout.Children.Add(NameBox);
                 stackLayout.Children.Add(labelText);
                 stackLayout.Children.Add(DayPicker);
@@ -121,6 +125,7 @@ namespace TimeTableKGU.Views
             }
             if (picker.Items[picker.SelectedIndex] == "Поиск свободной аудитории по времени")
             {
+                labelMessage.Text = "";
                 stackLayout.Children.Remove(FindBtn);
                 stackLayout.Children.Remove(labelMessage);
                 stackLayout.Children.Remove(NameBox);

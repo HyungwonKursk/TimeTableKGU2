@@ -32,7 +32,7 @@ namespace TimeTableKGU.Web.Services
         public async Task<bool> ChangeRoom(int id_lesson,int new_room)
         {
             HttpClient client = WebData.GetClient();
-            string result = await client.GetStringAsync(Url + id_lesson+"/"+ new_room);
+            string result = await client.GetStringAsync(Url + "changel/"+ id_lesson +"/"+ new_room);
             return JsonConvert.DeserializeObject<bool>(result);
         }
     }

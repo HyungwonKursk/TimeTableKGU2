@@ -4,6 +4,7 @@ using System.Text;
 using TimeTableKGU.DataBase;
 using Xamarin.Forms;
 
+
 namespace TimeTableKGU.Views
 {
     public partial class AuthorizationPage : ContentPage
@@ -136,6 +137,7 @@ namespace TimeTableKGU.Views
             ClientControls.CurrentUser = "";
             var tt = DbService.LoadAllTimeTable();
             DbService.RemoveTimeTable(tt);
+
             ClientPage = null;
             GetLoginPage();
         }

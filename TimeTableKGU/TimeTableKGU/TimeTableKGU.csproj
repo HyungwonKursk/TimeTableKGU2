@@ -27,6 +27,8 @@
 
     <Compile Remove="Views\UserPage.xaml.cs" />
 
+    <Compile Remove="Web\Services\ChangeService.cs" />
+
     <Compile Remove="Web\Services\StudentGroupService.cs" />
   </ItemGroup>
 

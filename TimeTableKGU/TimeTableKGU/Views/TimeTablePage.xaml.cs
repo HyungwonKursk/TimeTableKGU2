@@ -49,7 +49,7 @@ namespace TimeTableKGU.Views
                     //new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
                     //new RowDefinition { Height = new GridLength(100, GridUnitType.Absolute) }
                 },
-              
+
                 ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = 45},
@@ -65,8 +65,8 @@ namespace TimeTableKGU.Views
             Fri = new Button { Text = "ПЯТНИЦА" };
             Sat = new Button { Text = "СУББОТА" };
             Update = new Button { Text = "Обновить расписание" };
-            Change = new Button { Text="Изменить аудиторию"};
- 
+            Change = new Button { Text = "Изменить аудиторию" };
+
             Update.Clicked += Update_Clicked;
             Change.Clicked += Change_Clicked;
             ScrollView scrollView = new ScrollView { Content = grid };
@@ -77,7 +77,7 @@ namespace TimeTableKGU.Views
 
         private void Change_Clicked(object sender, EventArgs e)
         {
-            
+
         }
 
         private async void Update_Clicked(object sender, EventArgs e)
@@ -106,11 +106,11 @@ namespace TimeTableKGU.Views
             }
             else
             {
-                    var student = DbService.LoadAllStudent();
-                    timeTables = await new TimeTableService().GetStudentTimeTable(student[0].Group, student[0].Subgroup);
-                    DbService.AddTimeTable(timeTables);
-                    TimeTableData.TimeTables = timeTables;
-                    
+                var student = DbService.LoadAllStudent();
+                timeTables = await new TimeTableService().GetStudentTimeTable(student[0].Group, student[0].Subgroup);
+                DbService.AddTimeTable(timeTables);
+                TimeTableData.TimeTables = timeTables;
+
             }
 
             picker_SelectedIndexChanged(this, new EventArgs());
@@ -122,12 +122,12 @@ namespace TimeTableKGU.Views
 
         }
 
-         void picker_SelectedIndexChanged(object sender, EventArgs e)
+        void picker_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             if (TimeTableData.TimeTables.Count == 0) return;
 
-             int x = 0; int y = 0;
+            int x = 0; int y = 0;
 
             if (picker.SelectedIndex == -1)
             {
@@ -443,12 +443,12 @@ namespace TimeTableKGU.Views
                     y++; x = 0;
                 }
                 #endregion
-                
+
             }
             grid.Children.Add(Update, x + 1, y);
             if (ClientControls.CurrentUser == "Преподаватель")
             {
-                grid.Children.Add(Change, x + 1, y+1);
+                grid.Children.Add(Change, x + 1, y + 1);
             }
         }
     }
