@@ -25,10 +25,13 @@ namespace TimeTableKGU.Views
         public Button Sat { get; set; }
         public Button Update { get; set; }
         public Button Change { get; set; }
+        public static string Type { get; set; }
 
         public TimeTablePage()
         {
+            
             InitializeComponent();
+
             grid = new Grid
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
@@ -65,23 +68,29 @@ namespace TimeTableKGU.Views
             Fri = new Button { Text = "ПЯТНИЦА" };
             Sat = new Button { Text = "СУББОТА" };
             Update = new Button { Text = "Обновить расписание" };
-            Change = new Button { Text = "Изменить аудиторию" };
+            Change = new Button { Text = "Внести изменения" };
 
             Update.Clicked += Update_Clicked;
             Change.Clicked += Change_ClickedAsync;
             ScrollView scrollView = new ScrollView { Content = grid };
             // Build the page.
             stackLayout.Children.Add(scrollView);
+            //OnAlertYesNoClicked(this, new EventArgs());
 
         }
-
+        async void OnAlertYesNoClicked(object sender, EventArgs e)
+        {
+            bool answer = await DisplayAlert("Question?", "Обновить расписание", "Да", "Нет");
+            
+        }
         private async void Change_ClickedAsync(object sender, EventArgs e)
         {
             ChangesPage changesPage = new ChangesPage();
            await Navigation.PushAsync(changesPage);
         }
+        
 
-        private async void Update_Clicked(object sender, EventArgs e)
+        public async void Update_Clicked(object sender, EventArgs e)
         {
             var tt = DbService.LoadAllTimeTable();
             DbService.RemoveTimeTable(tt);
@@ -114,17 +123,23 @@ namespace TimeTableKGU.Views
 
             }
 
-            picker_SelectedIndexChanged(this, new EventArgs());
+            //picker_SelectedIndexChanged(this, new EventArgs());
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            //OnAlertYesNoClicked(this, new EventArgs());
 
         }
 
         void picker_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ClientControls.CurrentUser == null || ClientControls.CurrentUser == "")
+            {
+                DependencyService.Get<IToast>().Show("Авторизируйтесь в системе");
+                return;
+            }
 
             if (TimeTableData.TimeTables.Count == 0) return;
 
@@ -132,12 +147,14 @@ namespace TimeTableKGU.Views
 
             if (picker.SelectedIndex == -1)
             {
-                DependencyService.Get<IToast>().Show("Ошибка");
+                if (Type == "")
+                    DependencyService.Get<IToast>().Show("Ошибка");
             }
             else
 
-            if (picker.Items[picker.SelectedIndex] == "Числитель")
+            if (picker.Items[picker.SelectedIndex] == "Числитель" )
             {
+                Type = "Числитель";
                 grid.Children.Clear();
 
                 #region Понедельник
@@ -307,10 +324,10 @@ namespace TimeTableKGU.Views
 
             }
             else
-            if (picker.Items[picker.SelectedIndex] == "Знаменатель")
+            if (picker.Items[picker.SelectedIndex] == "Знаменатель" )
             {
                 grid.Children.Clear();
-
+                Type = "Знаменатель";
                 #region Понедельник
                 grid.Children.Add(Mon, x + 1, y);
                 var Day = from timatable in TimeTableData.TimeTables

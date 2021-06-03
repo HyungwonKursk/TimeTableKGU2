@@ -137,7 +137,7 @@ namespace TimeTableKGU.Views
             ClientControls.CurrentUser = "";
             var tt = DbService.LoadAllTimeTable();
             DbService.RemoveTimeTable(tt);
-
+            TimeTablePage.Type = "";
             ClientPage = null;
             GetLoginPage();
         }
