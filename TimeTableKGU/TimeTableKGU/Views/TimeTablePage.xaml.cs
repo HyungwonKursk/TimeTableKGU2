@@ -68,16 +68,17 @@ namespace TimeTableKGU.Views
             Change = new Button { Text = "Изменить аудиторию" };
 
             Update.Clicked += Update_Clicked;
-            Change.Clicked += Change_Clicked;
+            Change.Clicked += Change_ClickedAsync;
             ScrollView scrollView = new ScrollView { Content = grid };
             // Build the page.
             stackLayout.Children.Add(scrollView);
 
         }
 
-        private void Change_Clicked(object sender, EventArgs e)
+        private async void Change_ClickedAsync(object sender, EventArgs e)
         {
-
+            ChangesPage changesPage = new ChangesPage();
+           await Navigation.PushAsync(changesPage);
         }
 
         private async void Update_Clicked(object sender, EventArgs e)
@@ -160,11 +161,11 @@ namespace TimeTableKGU.Views
                     if (timetables.Room_Number == 0)
                     {
 
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Link), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
-
+                    
                     x++;
                     y++; x = 0;
                 }
@@ -189,7 +190,7 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Link), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
 
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -217,7 +218,7 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Link), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
 
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -243,7 +244,7 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Link), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
 
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -269,7 +270,7 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Link), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
 
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -295,7 +296,7 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Link), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
 
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -327,7 +328,11 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number) }, x, y);
+                    if (timetables.Room_Number == 0)
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+
+                    else
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -350,7 +355,11 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number) }, x, y);
+                    if (timetables.Room_Number == 0)
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+
+                    else
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -372,7 +381,11 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number) }, x, y);
+                    if (timetables.Room_Number == 0)
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+
+                    else
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -394,7 +407,11 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number) }, x, y);
+                    if (timetables.Room_Number == 0)
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+
+                    else
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -416,7 +433,11 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number) }, x, y);
+                    if (timetables.Room_Number == 0)
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+
+                    else
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -438,7 +459,11 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number) }, x, y);
+                    if (timetables.Room_Number == 0)
+                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+
+                    else
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
                     y++; x = 0;
                 }

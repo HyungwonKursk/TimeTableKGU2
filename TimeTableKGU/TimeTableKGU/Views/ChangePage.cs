@@ -93,11 +93,11 @@ namespace TimeTableKGU.Views
             }
             changeControls = null;
             
-            /*TimeTablePage tt = new TimeTablePage();
-            this.Content = tt.Content;*/
+            TimeTablePage tt = new TimeTablePage();
+            this.Content = tt.Content;
 
             Update_Clicked(this, new EventArgs());
-            GetTimeTablePage();
+           
         }
     }
 }
