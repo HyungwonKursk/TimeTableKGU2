@@ -90,7 +90,7 @@ namespace TimeTableKGU.Views
         
         public async void Update_Clicked(object sender, EventArgs e)
         {
-            //grid.Children.Clear();
+            grid.Children.Clear();
             var tt = DbService.LoadAllTimeTable();
             DbService.RemoveTimeTable(tt);
             List<TimeTable> timeTables = new List<TimeTable>();
@@ -155,7 +155,7 @@ namespace TimeTableKGU.Views
             }
             else
 
-            if (picker.Items[picker.SelectedIndex] == "Числитель" || Type == "Числитель")
+            if ((picker.Items[picker.SelectedIndex] == "Числитель" || Type == "Числитель") && picker.Items[picker.SelectedIndex] != "Знаменатель")
             {
                 Type = "Числитель";
                 grid.Children.Clear();
@@ -327,7 +327,7 @@ namespace TimeTableKGU.Views
 
             }
             else
-            if (picker.Items[picker.SelectedIndex] == "Знаменатель" || Type == "Знаменатель")
+            if ((picker.Items[picker.SelectedIndex] == "Знаменатель" || Type == "Знаменатель") && picker.Items[picker.SelectedIndex] != "Числитель")
             {
                 grid.Children.Clear();
                 Type = "Знаменатель";

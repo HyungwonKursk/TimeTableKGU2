@@ -96,10 +96,10 @@ namespace TimeTableKGU.Views
                     }
                 }
                 var rooms = await new TeacherService().SearchTeacher(id, DayPicker.Items[picker.SelectedIndex],TimeBox.Text);
-                labelMessage.Text = "Числитель: "; labelMessage2.Text = "Знаменатель: ";
-                if (rooms[0] == "") labelMessage.Text += "Преподаватель на кафедре или его нет в университете";
+                labelMessage.Text = ""; labelMessage2.Text = "";
+                if (rooms[0] == "") labelMessage.Text += "Числитель: Преподаватель на кафедре или его нет в университете";
                 else labelMessage.Text += rooms[0];
-                if (rooms[1] == "") labelMessage2.Text += "Преподаватель на кафедре или его нет в университете";
+                if (rooms[1] == "") labelMessage2.Text += "Знаменатель: Преподаватель на кафедре или его нет в университете";
                 else labelMessage2.Text += rooms[1];
 
             }
