@@ -76,7 +76,7 @@ namespace TimeTableKGU.Views
             // Build the page.
             stackLayout.Children.Add(scrollView);
             //OnAlertYesNoClicked(this, new EventArgs());
-
+            
         }
         async void OnAlertYesNoClicked(object sender, EventArgs e)
         {
@@ -85,13 +85,12 @@ namespace TimeTableKGU.Views
         }
         private async void Change_ClickedAsync(object sender, EventArgs e)
         {
-            ChangesPage changesPage = new ChangesPage();
-           await Navigation.PushAsync(changesPage);
+           await Navigation.PushAsync(new ChangesPage());
         }
         
-
         public async void Update_Clicked(object sender, EventArgs e)
         {
+            //grid.Children.Clear();
             var tt = DbService.LoadAllTimeTable();
             DbService.RemoveTimeTable(tt);
             List<TimeTable> timeTables = new List<TimeTable>();
@@ -111,7 +110,10 @@ namespace TimeTableKGU.Views
                     }
                 }
                 timeTables = await new TimeTableService().GetTeacherTimeTable(id);
+
+                
                 DbService.AddTimeTable(timeTables);
+
                 TimeTableData.TimeTables = timeTables;
             }
             else
@@ -122,8 +124,9 @@ namespace TimeTableKGU.Views
                 TimeTableData.TimeTables = timeTables;
 
             }
-
-            //picker_SelectedIndexChanged(this, new EventArgs());
+            DependencyService.Get<IToast>().Show("Изменения выполнены");
+            
+            picker_SelectedIndexChanged(this, new EventArgs());
         }
 
         protected override void OnAppearing()
@@ -152,7 +155,7 @@ namespace TimeTableKGU.Views
             }
             else
 
-            if (picker.Items[picker.SelectedIndex] == "Числитель" )
+            if (picker.Items[picker.SelectedIndex] == "Числитель" || Type == "Числитель")
             {
                 Type = "Числитель";
                 grid.Children.Clear();
@@ -324,7 +327,7 @@ namespace TimeTableKGU.Views
 
             }
             else
-            if (picker.Items[picker.SelectedIndex] == "Знаменатель" )
+            if (picker.Items[picker.SelectedIndex] == "Знаменатель" || Type == "Знаменатель")
             {
                 grid.Children.Clear();
                 Type = "Знаменатель";

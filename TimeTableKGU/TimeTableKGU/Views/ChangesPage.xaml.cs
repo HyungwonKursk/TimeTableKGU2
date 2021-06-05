@@ -89,8 +89,12 @@ namespace TimeTableKGU.Views
                         break;
                     }
                 }
+                await Navigation.PopAsync(); 
                 tt.Update_Clicked(tt, new EventArgs());
             }
+            
+            
+                
         }
 
         public void SetContent()

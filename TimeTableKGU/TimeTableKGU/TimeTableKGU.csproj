@@ -18,6 +18,7 @@
     <Compile Remove="ViewModels\LoginViewModel.cs" />
     <Compile Remove="ViewModels\NewItemViewModel.cs" />
     <Compile Remove="Views\AboutPage.xaml.cs" />
+    <Compile Remove="Views\ChangePage.cs" />
     <Compile Remove="Views\ItemDetailPage.xaml.cs" />
     <Compile Remove="Views\ItemsPage.xaml.cs" />
 
