@@ -36,9 +36,9 @@ namespace TimeTableKGU.Views
             bool connect = await WebData.CheckConnection();
             if (connect == false) return;
 
-            List<TimeTable> timeTables = await new TimeTableService().GetStudentTimeTable(413, 1);
+           // List<TimeTable> timeTables = await new TimeTableService().GetStudentTimeTable(413, 1);
             
-            DbService.AddTimeTable(timeTables);
+           // DbService.AddTimeTable(timeTables);
 
             TimeTableData.TimeTables = DbService.LoadAllTimeTable();
             // lb.Text = st;

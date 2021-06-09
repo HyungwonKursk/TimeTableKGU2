@@ -53,6 +53,14 @@
         
 
     </FlyoutItem>
+    <ShellContent Route="about"
+                  Title="About"
+                  Icon="info.png"
+                   />
+    <MenuItem Text="Help"
+              IconImageSource="help.png"
+              Command="{Binding HelpCommand}"
+              CommandParameter="https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell" />
     
     <TabBar>
         <ShellContent Title="About" 

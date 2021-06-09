@@ -80,8 +80,21 @@ namespace TimeTableKGU.Views
         }
         async void OnAlertYesNoClicked(object sender, EventArgs e)
         {
-            bool answer = await DisplayAlert("Question?", "Обновить расписание", "Да", "Нет");
-            
+            bool changes = false;
+            bool answer = false;
+
+            if (ClientControls.CurrentUser == "") return;
+
+            if (ClientControls.CurrentUser == "Студент")
+                 changes = await new TimeTableService().GetChanges(StudentData.Students[0].StudentId,"S");
+            else
+                changes = await new TimeTableService().GetChanges(TeacherData.Teachers[0].TeacherId, "T");
+
+            if (changes)
+                answer = await DisplayAlert("Question?", "Были внесены изменения.Обновить расписание", "Да", "Нет");
+
+            if (answer)
+                Update_Clicked(this, new EventArgs());
         }
         private async void Change_ClickedAsync(object sender, EventArgs e)
         {
@@ -119,7 +132,7 @@ namespace TimeTableKGU.Views
             else
             {
                 var student = DbService.LoadAllStudent();
-                timeTables = await new TimeTableService().GetStudentTimeTable(student[0].Group, student[0].Subgroup);
+                timeTables = await new TimeTableService().GetStudentTimeTable(student[0].Group, student[0].Subgroup,student[0].StudentId);
                 DbService.AddTimeTable(timeTables);
                 TimeTableData.TimeTables = timeTables;
 
@@ -132,7 +145,7 @@ namespace TimeTableKGU.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            //OnAlertYesNoClicked(this, new EventArgs());
+            OnAlertYesNoClicked(this, new EventArgs());
 
         }
 
@@ -180,8 +193,10 @@ namespace TimeTableKGU.Views
                     x++;
                     if (timetables.Room_Number == 0)
                     {
-
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        if (timetables.Link=="Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label{ Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center}, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -210,8 +225,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
 
@@ -264,8 +283,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -290,8 +313,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -316,8 +343,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -349,8 +380,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -376,8 +411,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -402,8 +441,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -428,8 +471,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -454,8 +501,12 @@ namespace TimeTableKGU.Views
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
-
+                    {
+                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        else
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;

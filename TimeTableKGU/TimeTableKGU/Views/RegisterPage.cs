@@ -207,6 +207,11 @@ namespace TimeTableKGU.Views
         }
         public async void RegistrUser(object sender, EventArgs e)
         {
+            if (isLoading)
+            {
+                DependencyService.Get<IToast>().Show("Пользователь уже загружается");
+                return;
+            }
 
             if (RegisrationPage.TypePick.Items[RegisrationPage.TypePick.SelectedIndex] == "Студент")
             {
@@ -229,6 +234,12 @@ namespace TimeTableKGU.Views
                 bool connect = await WebData.CheckConnection();
                 if (connect == false) return;
 
+                if (! await new CheckService().GetCheckLogin(RegisrationPage.LoginBox.Text))
+                {
+                    DependencyService.Get<IToast>().Show("Логин уже занят");
+                    RegisrationPage.LoginBox.Text = ""; return;
+                }
+                isLoading = true;
                 // отправка данных регистрации на сервер    
                 var user = await new UserService().
                         RegisterStudent(RegisrationPage.LoginBox.Text, RegisrationPage.PasswBox.Text,
@@ -238,16 +249,19 @@ namespace TimeTableKGU.Views
                 // если сервер вернул данные пользователя - загрузить в пользователя
                 if (user != null)
                 {
-                    var timetable = await new TimeTableService().GetStudentTimeTable(user.Group,user.Subgroup);
+                    var timetable = await new TimeTableService().GetStudentTimeTable(user.Group,user.Subgroup,user.StudentId);
                     TimeTableData.TimeTables = timetable;
                     DbService.AddTimeTable(timetable);
                     DbService.AddStudent(user); // сохранили пользователя
+                    StudentData.Students = DbService.LoadAllStudent();
                     ClientControls.CurrentUser = "Студент";
+                    isLoading = false;
                     return;
                 }
                 else
                 {
                     await DisplayAlert("Ошибка", "Сервер не вернул данные", "OK");
+                    isLoading = false;
                     return;
                 }
             }
@@ -271,12 +285,12 @@ namespace TimeTableKGU.Views
                 if (connect == false) return;
 
                 //проверка занят ли логин
-                if (!(await new CheckService().GetCheckLogin(RegisrationPage.LoginBox.Text)))
+                if (!await new CheckService().GetCheckLogin(RegisrationPage.LoginBox.Text))
                 {
                     DependencyService.Get<IToast>().Show("Логин уже занят");
                     RegisrationPage.LoginBox.Text = ""; return;
                 }
-
+                isLoading = true;
                 // отправка данных регистрации на сервер    
                 var user = await new UserService().
                         RegisterTeacher(RegisrationPage.LoginBox.Text, RegisrationPage.PasswBox.Text,
@@ -304,11 +318,13 @@ namespace TimeTableKGU.Views
                     ClientControls.CurrentUser = "Преподаватель";
 
                     GetClientPage();
+                    isLoading = false;
                     return;
                 }
                 else
                 {
                     await DisplayAlert("Ошибка", "Сервер не вернул данные", "OK");
+                    isLoading = false;
                     return;
                 }
             }
@@ -319,6 +335,11 @@ namespace TimeTableKGU.Views
         }
         private void ToLoginPage(object sender, EventArgs e)
         {
+            if (isLoading)
+            {
+                DependencyService.Get<IToast>().Show("Дождитесь окончания загрузки");
+                return;
+            }
             GetLoginPage();
         }
     }

@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TimeTableKGU.Models.Teacher">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAgAAAACAAAEAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Models\Teacher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Models.Group">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAEAAAAAAAAAKAAAAAAAAAAAAAAAAAQAAAABAQ=</HashCode>
+      <FileName>Models\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Models.TimeTable">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAQAIBAAAAAAAAAAAEAAAAAQAAQAQA=</HashCode>
+      <FileName>Models\TimeTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Models.Student">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQEAAAAEAAAAABAAAAAAAAAAAAAACAAAQAAACAAA=</HashCode>
+      <FileName>Models\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Data.StudentData">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\StudentData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Data.TimeTableData">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\TimeTableData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Data.GroupData">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\GroupData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Data.TeacherData">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Data\TeacherData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.DataBase.ApplicationContext">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAAAAAAQAAAAAAAAAAAAAAEAAAAAAAAAEAAgAAAAA=</HashCode>
+      <FileName>DataBase\ApplicationContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.DataBase.DbService">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQgAAARCAAkAAAAAIAAAAAQACAAAAIAQABAAAE=</HashCode>
+      <FileName>DataBase\DbService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Views.AuthorizationPage">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="TimeTableKGU.Views.AuthorizationPage.GroupControls" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Views\GroupPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TimeTableKGU.Views.AuthorizationPage.LoginControls" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Views\LoginPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TimeTableKGU.Views.AuthorizationPage.RegisrationContrioolers" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Views\RegisterPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="TimeTableKGU.Views.AuthorizationPage.ClientControls" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Views\UserPage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AABQAhCAAAgAMAgAAQAAEBQAEAAAAAEAAABAABACAAA=</HashCode>
+      <FileName>Views\AuthorizationPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Views.ChangesPage">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEQAAIAEAAAAAAACAAAAEAAAAAAAAQAAAAABAA=</HashCode>
+      <FileName>Views\ChangesPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Views.SearchPage">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBAEAAAAAAAEEAAAAAAAAAAAAEBAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Views\SearchPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Views.TimeTablePage">
+    <Position X="5.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAApERAAAAAAAAAAAAAQAAEAAIQAEQAAAAIg=</HashCode>
+      <FileName>Views\TimeTablePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.Services.CheckService">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAAAAAAAA=</HashCode>
+      <FileName>Web\Services\CheckService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.Services.GroupService">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQAAAAAAAAA=</HashCode>
+      <FileName>Web\Services\GroupService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.Services.RoomService">
+    <Position X="4" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Web\Services\RoomService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.Services.StudentService">
+    <Position X="2.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Web\Services\StudentService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.Services.TeacherService">
+    <Position X="2.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Web\Services\TeacherService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.Services.TimeTableService">
+    <Position X="4" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAEAAAAAAAAAAAAAAACAAEAAAAAAA=</HashCode>
+      <FileName>Web\Services\TimeTableService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.Services.UserService">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAgAAA=</HashCode>
+      <FileName>Web\Services\UserService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Web.WebData">
+    <Position X="4" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAQAAAAABAAAA=</HashCode>
+      <FileName>Web\WebData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.App">
+    <Position X="7.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.AppShell">
+    <Position X="9.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppShell.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Models.TeacherBD">
+    <Position X="11" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TeacherBD.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Models.SimpleLinkLabel">
+    <Position X="7.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SimpleLinkLabel .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeTableKGU.Models.LinkLabel">
+    <Position X="9.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Models\LinkLabel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TimeTableKGU.Interface.IToast">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interface\IToast.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

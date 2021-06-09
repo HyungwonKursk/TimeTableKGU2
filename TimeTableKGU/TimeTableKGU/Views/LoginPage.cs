@@ -130,9 +130,10 @@ namespace TimeTableKGU.Views
             if (userStudent != null) // если сервер вернул данные пользователя - загрузить в пользователя
             {
                 DbService.AddStudent(userStudent); // сохранили пользователя
+                StudentData.Students=DbService.LoadAllStudent();
                 ClientControls.CurrentUser = "Студент";
                 isLoading = false;
-                var timetable = await new TimeTableService().GetStudentTimeTable(userStudent.Group, userStudent.Subgroup);
+                var timetable = await new TimeTableService().GetStudentTimeTable(userStudent.Group, userStudent.Subgroup, userStudent.StudentId);
                 TimeTableData.TimeTables = timetable;
                 DbService.AddTimeTable(timetable);
                 GetClientPage();
@@ -160,6 +161,7 @@ namespace TimeTableKGU.Views
                 TimeTableData.TimeTables = timetable;
                 DbService.AddTimeTable(timetable);
                 GetClientPage();
+                isLoading = false;
                 return;
             }
             else
