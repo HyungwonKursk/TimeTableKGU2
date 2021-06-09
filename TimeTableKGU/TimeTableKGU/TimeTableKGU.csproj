@@ -17,7 +17,6 @@
     <Compile Remove="ViewModels\ItemsViewModel.cs" />
     <Compile Remove="ViewModels\LoginViewModel.cs" />
     <Compile Remove="ViewModels\NewItemViewModel.cs" />
-    <Compile Remove="Views\AboutPage.xaml.cs" />
     <Compile Remove="Views\ChangePage.cs" />
     <Compile Remove="Views\ItemDetailPage.xaml.cs" />
     <Compile Remove="Views\ItemsPage.xaml.cs" />
@@ -34,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Views\AboutPage.xaml" />
     <EmbeddedResource Remove="Views\ItemDetailPage.xaml" />
     <EmbeddedResource Remove="Views\ItemsPage.xaml" />
     <EmbeddedResource Remove="Views\LoginPage.xaml" />
@@ -57,6 +55,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Controls\FlyoutHeader.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AboutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AuthorizationPage.xaml">

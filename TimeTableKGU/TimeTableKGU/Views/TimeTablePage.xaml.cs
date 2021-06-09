@@ -59,7 +59,8 @@ namespace TimeTableKGU.Views
                     new ColumnDefinition { Width = 250 },
                     new ColumnDefinition { Width = 50 }
                 }
-
+                
+                
             };
             Mon = new Button { Text = "ПОНЕДЕЛЬНИК" };
             Tue = new Button { Text = "ВТОРНИК" };

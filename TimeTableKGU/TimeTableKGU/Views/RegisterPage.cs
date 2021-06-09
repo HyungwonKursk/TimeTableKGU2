@@ -29,8 +29,24 @@ namespace TimeTableKGU.Views
             public Picker GroupPick { get; set; }
             public Entry DepartBox { get; set; }
             public Entry PosBox { get; set; }
+            public Grid grid { get; set; }
+            public Label label { get; set; }
+            public CheckBox checkBox { get; set; }
             public RegisrationContrioolers()
             {
+                checkBox = new CheckBox {};
+                checkBox.CheckedChanged += CheckBox_CheckedChanged;
+                grid = new Grid {
+                    ColumnDefinitions =
+                {
+                    new ColumnDefinition { Width = 45},
+                    new ColumnDefinition { Width = 250 },
+                }
+                };
+                label = new Label { Text = "Согласие на обработку персональных данных"};
+
+                grid.Children.Add(checkBox,0,0);
+                grid.Children.Add(label, 1, 0);
 
                 labelMessage = new Label
                 {
@@ -100,6 +116,7 @@ namespace TimeTableKGU.Views
                 RegisBtn = new Button
                 {
                     Text = "Зарегистрироваться",
+                    IsEnabled = false,
                     BackgroundColor = Color.FromHex("#b3e5fc"),
                     TextColor = Color.Black,
                     BorderColor = Color.Black,
@@ -137,28 +154,40 @@ namespace TimeTableKGU.Views
                 TypePick.SelectedIndexChanged += TypePick_Change;
             }
 
+            private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+            {
+                if (checkBox.IsChecked)
+                    RegisBtn.IsEnabled = true;
+                if (!checkBox.IsChecked)
+                    RegisBtn.IsEnabled = false;
+
+            }
+
             private void TypePick_Change(object sender, EventArgs e)
             {
                 if (TypePick.Items[TypePick.SelectedIndex] == "Студент")
                 {
-
+                    stackLayout.Children.Remove(grid);
                     stackLayout.Children.Remove(PosBox);
                     stackLayout.Children.Remove(DepartBox);
                     stackLayout.Children.Remove(LoginBtn);
                     stackLayout.Children.Remove(RegisBtn);
                     stackLayout.Children.Add(GroupPick);
                     stackLayout.Children.Add(SubPick);
+                    stackLayout.Children.Add(grid);
                 }
 
                 else
                 if (TypePick.Items[TypePick.SelectedIndex] == "Преподаватель")
                 {
+                    stackLayout.Children.Remove(grid);
                     stackLayout.Children.Remove(GroupPick);
                     stackLayout.Children.Remove(SubPick);
                     stackLayout.Children.Remove(LoginBtn);
                     stackLayout.Children.Remove(RegisBtn);
                     stackLayout.Children.Add(DepartBox);
                     stackLayout.Children.Add(PosBox);
+                    stackLayout.Children.Add(grid);
                 }
 
                 stackLayout.Children.Add(RegisBtn);
