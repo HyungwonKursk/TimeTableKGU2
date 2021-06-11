@@ -189,15 +189,22 @@ namespace TimeTableKGU.Views
                     {
                         Text = timetables.Subject + " " +
                         timetables.Name_Group,
-                        // HorizontalTextAlignment = TextAlignment.Center
                     }, x, y);
                     x++;
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
                     if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link=="Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label{ Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center}, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch 
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -222,15 +229,24 @@ namespace TimeTableKGU.Views
                     {
                         Text = timetables.Subject + " " +
                         timetables.Name_Group,
-                        // HorizontalTextAlignment = TextAlignment.Center
+                        
                     }, x, y);
                     x++;
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
                     if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+                       
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -257,9 +273,22 @@ namespace TimeTableKGU.Views
                         //HorizontalTextAlignment = TextAlignment.Center
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
 
+                     if (timetables.Room_Number == 0)
+                    {
+                        try
+                        {
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+                       
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -283,12 +312,21 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
                     if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+                       
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -313,12 +351,21 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
+                         if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+                        
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -343,12 +390,21 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
+                               if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+                       
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -380,12 +436,22 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
+
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
+                               if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -411,12 +477,22 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
+
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
+                               if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -441,12 +517,22 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
+
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
+                               if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
@@ -471,15 +557,26 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
+
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
+                               if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+
                     x++;
                     y++; x = 0;
                 }
@@ -501,15 +598,26 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
+
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
+
+                               if (timetables.Room_Number == 0)
                     {
-                        if (timetables.Link == "Zoom" || timetables.Link == "Discord")
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
-                        else
+                        try
+                        {
                             grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+
                     }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+
                     x++;
                     y++; x = 0;
                 }
@@ -531,9 +639,22 @@ namespace TimeTableKGU.Views
                         timetables.Name_Group
                     }, x, y);
                     x++;
-                    if (timetables.Room_Number == 0)
-                        grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                    if (timetables.Room_Number == -1)
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    else
 
+                               if (timetables.Room_Number == 0)
+                    {
+                        try
+                        {
+                            grid.Children.Add(new SimpleLinkLabel(new Uri(Convert.ToString(timetables.Link))), x, y);
+                        }
+                        catch
+                        {
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        }
+
+                    }
                     else
                         grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
                     x++;
@@ -543,7 +664,7 @@ namespace TimeTableKGU.Views
 
             }
             grid.Children.Add(Update, x + 1, y);
-            if (ClientControls.CurrentUser == "Преподаватель")
+            if (ClientControls.CurrentUser == "Преподаватель" || StudentData.Students[0].Group_Leader)
             {
                 grid.Children.Add(Change, x + 1, y + 1);
             }

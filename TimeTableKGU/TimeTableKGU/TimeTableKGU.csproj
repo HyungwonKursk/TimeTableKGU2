@@ -6,9 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\DirectionData.cs" />
+    <Compile Remove="Data\GroupData.cs" />
+    <Compile Remove="Data\LessonData.cs" />
+    <Compile Remove="Data\RoomData.cs" />
+    <Compile Remove="Data\SubjectData.cs" />
+    <Compile Remove="Data\WeekData.cs" />
     <Compile Remove="Models\Changes.cs" />
+    <Compile Remove="Models\Direction.cs" />
+    <Compile Remove="Models\Group.cs" />
     <Compile Remove="Models\Item.cs" />
+    <Compile Remove="Models\Lesson.cs" />
+    <Compile Remove="Models\Room.cs" />
+    <Compile Remove="Models\Subject.cs" />
     <Compile Remove="Models\Time.cs" />
+    <Compile Remove="Models\User.cs" />
+    <Compile Remove="Models\Week.cs" />
     <Compile Remove="Services\IDataStore.cs" />
     <Compile Remove="Services\MockDataStore.cs" />
     <Compile Remove="ViewModels\AboutViewModel.cs" />

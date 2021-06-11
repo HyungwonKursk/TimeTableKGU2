@@ -58,10 +58,7 @@
                   Icon="info.png"
                   ContentTemplate="{DataTemplate local:AboutPage}" 
                    />
-    <MenuItem Text="Help"
-              IconImageSource="help.png"
-              Command="{Binding HelpCommand}"
-              CommandParameter="https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell" />
+
     
     <TabBar>
         <ShellContent Title="About" 

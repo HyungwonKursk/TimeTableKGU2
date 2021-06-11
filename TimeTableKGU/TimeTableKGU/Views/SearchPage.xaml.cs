@@ -148,7 +148,7 @@ namespace TimeTableKGU.Views
                 stackLayout.Children.Remove(TimeBox);
                 stackLayout.Children.Remove(labelText);
                 stackLayout.Children.Remove(DayPicker);
-                //labelMessage.Text = "Введите ФИО преподавателя";
+
                 NameBox.Text = "";
                 TimeBox.Text = "";
 

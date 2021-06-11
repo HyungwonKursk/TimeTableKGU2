@@ -26,45 +26,6 @@ namespace TimeTableKGU.DataBase
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<TimeTable>().HasKey(m => m.TimeTableId);
-
-           /* modelBuilder.Entity<Direction>()
-                              .HasMany(m => m.Groups)
-                              .WithOne(t => t.Direction)
-                              .HasForeignKey(m => m.GroupId)
-                              .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Group>()
-                              .HasMany(m => m.Students)
-                              .WithOne(t => t.Group)
-                              .HasForeignKey(m => m.StudentId)
-                              .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Group>()
-                              .HasMany(m => m.Lessons)
-                              .WithOne(t => t.Group)
-                              .HasForeignKey(m => m.LessonId)
-                              .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Room>()
-                              .HasMany(m => m.Lessons)
-                              .WithOne(t => t.Classroom)
-                              .HasForeignKey(m => m.LessonId)
-                              .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Subject>()
-                              .HasMany(m => m.Lessons)
-                              .WithOne(t => t.Subject)
-                              .HasForeignKey(m => m.LessonId)
-                              .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Teacher>()
-                                 .HasMany(m => m.Lessons)
-                                 .WithOne(t => t.Teacher)
-                                 .HasForeignKey(m => m.LessonId)
-                                 .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Week>()
-                                 .HasMany(m => m.Lessons)
-                                 .WithOne(t => t.Week)
-                                 .HasForeignKey(m => m.LessonId)
-                                 .OnDelete(DeleteBehavior.NoAction);*/
-
-
-
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

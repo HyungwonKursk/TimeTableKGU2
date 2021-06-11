@@ -15,7 +15,7 @@ namespace TimeTableKGU.Web.Services
 
 
         // получаем расписание для студента
-        public async Task<HttpStatusCode> PutLink(int? id, Link _link)
+        public async Task<bool> PutLink(int? id, Link _link)
         {
             // сериализация объекта с помощью Json.NET
             string json = JsonConvert.SerializeObject(_link);
@@ -23,9 +23,12 @@ namespace TimeTableKGU.Web.Services
                                     Encoding.UTF8, "application/json");
 
             HttpClient client = new HttpClient();
-            string s = Url + id;
-            HttpResponseMessage response = await client.PutAsync(Url + id, content);
-            return 0;
+
+            HttpResponseMessage result = await client.PutAsync(Url + id, content);
+            if (result.StatusCode == HttpStatusCode.NoContent)
+                return true;
+            else
+                return false;
 
         }
     }

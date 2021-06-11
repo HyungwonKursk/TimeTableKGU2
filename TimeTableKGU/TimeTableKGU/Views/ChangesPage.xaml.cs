@@ -8,6 +8,7 @@ using TimeTableKGU.Interface;
 using TimeTableKGU.Web.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static TimeTableKGU.Views.AuthorizationPage;
 
 namespace TimeTableKGU.Views
 {
@@ -16,6 +17,7 @@ namespace TimeTableKGU.Views
     {
         public Entry nameBox { get; set; }
         public Entry timeBox { get; set; }
+        public Entry  teacherBox{ get; set; }
         public Entry roomBox { get; set; }
         public Button changeBtn { get; set; }
         public Picker DayPicker { get; set; }
@@ -50,6 +52,17 @@ namespace TimeTableKGU.Views
                 Style = Device.Styles.BodyStyle,
                 HorizontalOptions = LayoutOptions.Fill
             };
+            teacherBox = new Entry
+            {
+                Text = "",
+                Placeholder = "ФИО преподавателя как в расписании",
+                Keyboard = Keyboard.Default,
+                TextColor = Color.Black,
+                PlaceholderColor = Color.Black,
+                ClearButtonVisibility = ClearButtonVisibility.WhileEditing,
+                Style = Device.Styles.BodyStyle,
+                HorizontalOptions = LayoutOptions.Fill
+            };
             roomBox = new Entry
             {
                 Text = "",
@@ -69,32 +82,48 @@ namespace TimeTableKGU.Views
 
         private async void ChangeBtn_Clicked(object sender, EventArgs e)
         {
+            int room;
+            
             if (nameBox.Text == "" || timeBox.Text == "" || DayPicker.SelectedIndex==-1 || roomBox.Text=="")
             {
                 DependencyService.Get<IToast>().Show("Не все поля заполнены"); return;
             }
-            if (roomBox.Text != "0")
+
+            if (ClientControls.CurrentUser != "Преподаватель" && roomBox.Text == "0")
             {
-                TimeTablePage tt = new TimeTablePage();
-                bool isChange = false;
-                for (int i = 0; i < TimeTableData.TimeTables.Count; i++)
+                DependencyService.Get<IToast>().Show("У Вас нет прав для отмены занятия"); 
+                return;
+            }
+
+            if (roomBox.Text == "0")
+                room = -1;
+            else
+                room = Convert.ToInt32(roomBox.Text);
+
+            TimeTablePage tt = new TimeTablePage();
+            bool isChange = false;
+
+            for (int i = 0; i < TimeTableData.TimeTables.Count; i++)
+            {
+                if (TimeTableData.TimeTables[i].Subject == nameBox.Text &&
+                    TimeTableData.TimeTables[i].Time == timeBox.Text &&
+                    TimeTableData.TimeTables[i].Week_day == DayPicker.Items[DayPicker.SelectedIndex] &&
+                    TimeTableData.TimeTables[i].Parity == TimeTablePage.Type)
                 {
-                    if (TimeTableData.TimeTables[i].Subject == nameBox.Text &&
-                        TimeTableData.TimeTables[i].Time == timeBox.Text &&
-                        TimeTableData.TimeTables[i].Week_day == DayPicker.Items[DayPicker.SelectedIndex] && 
-                        TimeTableData.TimeTables[i].Parity == TimeTablePage.Type)
-                    {
-                        isChange = await new TimeTableService().ChangeRoom(TimeTableData.TimeTables[i].TimeTableId,
-                            Convert.ToInt32(roomBox.Text));
-                        break;
-                    }
+                    isChange = await new TimeTableService().ChangeRoom(TimeTableData.TimeTables[i].TimeTableId,
+                        room);
+                    break;
                 }
-                await Navigation.PopAsync(); 
+            }
+            if (isChange)
+            {
+                await Navigation.PopAsync();
                 tt.Update_Clicked(tt, new EventArgs());
             }
-            
-            
-                
+            else
+                DependencyService.Get<IToast>().Show("Что-то пошло не так, изменение не были внесены.");
+
+
         }
 
         public void SetContent()
@@ -104,8 +133,11 @@ namespace TimeTableKGU.Views
             stackLayout.Children.Add(labelMessage);
             stackLayout.Children.Add(roomBox);
             stackLayout.Children.Add(DayPicker);
-            stackLayout.Children.Add(changeBtn);
 
+            if (ClientControls.CurrentUser=="Студент")
+                stackLayout.Children.Add(teacherBox);
+          
+             stackLayout.Children.Add(changeBtn);
         }
     }
 }

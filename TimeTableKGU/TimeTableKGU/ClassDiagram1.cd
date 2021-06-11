@@ -7,13 +7,6 @@
       <FileName>Models\Teacher.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="TimeTableKGU.Models.Group">
-    <Position X="2.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAEAAAAAAAAAKAAAAAAAAAAAAAAAAAQAAAABAQ=</HashCode>
-      <FileName>Models\Group.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="TimeTableKGU.Models.TimeTable">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -40,13 +33,6 @@
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Data\TimeTableData.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TimeTableKGU.Data.GroupData">
-    <Position X="2.25" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Data\GroupData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TimeTableKGU.Data.TeacherData">
@@ -161,7 +147,7 @@
   <Class Name="TimeTableKGU.Web.Services.TimeTableService">
     <Position X="4" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAEAAAAAAAAAAAAAAACAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAEAAAAAAAAAIAAAAACAAEAAAAAAA=</HashCode>
       <FileName>Web\Services\TimeTableService.cs</FileName>
     </TypeIdentifier>
   </Class>
