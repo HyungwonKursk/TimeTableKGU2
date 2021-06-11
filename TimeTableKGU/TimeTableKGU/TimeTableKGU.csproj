@@ -29,6 +29,8 @@
 
     <Compile Remove="Web\Services\ChangeService.cs" />
 
+    <Compile Remove="Web\Services\LinkService.cs" />
+
     <Compile Remove="Web\Services\StudentGroupService.cs" />
   </ItemGroup>
 
@@ -64,6 +66,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ChangesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LinkPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Page1.xaml">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeTableKGU.Interface;
 using TimeTableKGU.Web.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -63,7 +64,7 @@ namespace TimeTableKGU.Views
             TimeBox = new Entry
             {
                 Text = "",
-                Placeholder ="Введите время",
+                Placeholder ="Введите время ЧЧ:ММ",
                 Keyboard = Keyboard.Default,
                 TextColor = Color.Black,
                 PlaceholderColor = Color.Black,
@@ -79,6 +80,13 @@ namespace TimeTableKGU.Views
 
         private async void FindBtn_ClickedAsync(object sender, EventArgs e)
         {
+            int K = TimeBox.Text.IndexOf('-');
+            if (TimeBox.Text.IndexOf('-') != -1)
+            {
+                DependencyService.Get<IToast>().Show("Не корректно введено время. Корректный формат ЧЧ:ММ");
+                return;
+            }
+
             labelMessage.Text = "";
             if (picker.Items[picker.SelectedIndex] == "Поиск преподавателя по ФИО")
             {
@@ -95,6 +103,23 @@ namespace TimeTableKGU.Views
                         break;
                     }
                 }
+                if (id == 0)
+                {
+                    for (int i = 0; i < teachers.Count; i++)
+                    {
+                        if (teachers[i].full_name == NameBox.Text)
+                        {
+                            id = teachers[i].id_t;
+                            break;
+                        }
+                    }
+                    if (id == 0)
+                    {
+                        DependencyService.Get<IToast>().Show("Преподаватель не найден. Проверьте корректность ввода ФИО.");
+                        return;
+                    }
+                }
+                
                 var rooms = await new TeacherService().SearchTeacher(id, DayPicker.Items[picker.SelectedIndex],TimeBox.Text);
                 labelMessage.Text = ""; labelMessage2.Text = "";
                 if (rooms[0] == "") labelMessage.Text += "Числитель: Преподаватель на кафедре или его нет в университете";

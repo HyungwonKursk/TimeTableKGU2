@@ -49,12 +49,13 @@ namespace TimeTableKGU.Views
 
 
         }
-        private void SettingBtn_Clicked(object sender, EventArgs e)
+        private async void SettingBtn_Clicked(object sender, EventArgs e)
         {
 
-           if (ClientControls.CurrentUser == "Студент")
-               GetGroupPage();
-
+            if (ClientControls.CurrentUser == "Студент")
+                GetGroupPage();
+            else
+                await Navigation.PushAsync(new LinkPage());
 
         }
         public ClientControls ClientPage;
