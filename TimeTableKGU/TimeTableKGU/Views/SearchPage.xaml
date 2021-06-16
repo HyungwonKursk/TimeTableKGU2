@@ -4,7 +4,7 @@
              x:Class="TimeTableKGU.Views.SearchPage">
     <ContentPage.Content>
         <StackLayout x:Name="stackLayout">
-            <Label x:Name="header" Text="Выберите параметр поиска" FontSize="Large" />
+            <Label x:Name="header" Text="Выберите параметр поиска" FontSize="Large" TextColor="Black"/>
             <Picker x:Name="picker" SelectedIndexChanged="picker_SelectedIndexChanged">
                 <Picker.Items>
                     <x:String>Поиск преподавателя по ФИО</x:String>

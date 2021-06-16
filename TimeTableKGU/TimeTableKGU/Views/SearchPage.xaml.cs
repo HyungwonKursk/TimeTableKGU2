@@ -72,7 +72,7 @@ namespace TimeTableKGU.Views
                 Style = Device.Styles.BodyStyle,
                 HorizontalOptions = LayoutOptions.Fill
             };
-            DayPicker = new Picker { Items = {"Понедельник","Вторник","Среда","Четверг","Пятница","Суббота" } };
+            DayPicker = new Picker { BackgroundColor=Color.Aqua, Items = {"Понедельник","Вторник","Среда","Четверг","Пятница","Суббота" },TextColor = Color.Black, };
 
             FindBtn.Clicked += FindBtn_ClickedAsync;
             
@@ -90,11 +90,21 @@ namespace TimeTableKGU.Views
             labelMessage.Text = "";
             if (picker.Items[picker.SelectedIndex] == "Поиск преподавателя по ФИО")
             {
-                
-               var teachers = await new TeacherService().GetTeachers();
+                if (DayPicker.SelectedIndex == -1 || TimeBox.Text == "" || NameBox.Text == "")
+                { DependencyService.Get<IToast>().Show("Не все поля заполнены"); return; }
+                var teachers = await new TeacherService().GetTeachers();
                 int id = 0;
-                var st = NameBox.Text.Split(' ');
-                string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
+                string name;
+                try
+                {
+                    var st = NameBox.Text.Split(' ');
+                     name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
+                }
+                catch
+                {
+                    DependencyService.Get<IToast>().Show("Проверьте корректность ввода ФИО.");
+                    return;
+                }
                 for (int i = 0; i < teachers.Count; i++)
                 {
                     if (teachers[i].full_name == name)
@@ -120,7 +130,7 @@ namespace TimeTableKGU.Views
                     }
                 }
                 
-                var rooms = await new TeacherService().SearchTeacher(id, DayPicker.Items[picker.SelectedIndex],TimeBox.Text);
+                var rooms = await new TeacherService().SearchTeacher(id, DayPicker.Items[DayPicker.SelectedIndex], TimeBox.Text);
                 labelMessage.Text = ""; labelMessage2.Text = "";
                 if (rooms[0] == "") labelMessage.Text += "Числитель: Преподаватель на кафедре или его нет в университете";
                 else labelMessage.Text += rooms[0];
@@ -130,7 +140,10 @@ namespace TimeTableKGU.Views
             }
             if (picker.Items[picker.SelectedIndex] == "Поиск свободной аудитории по времени")
             {
-                var rooms = await new RoomService().GetRoom(DayPicker.Items[picker.SelectedIndex], TimeBox.Text);
+                if (DayPicker.SelectedIndex == -1 || TimeBox.Text == "")
+                { DependencyService.Get<IToast>().Show("Не все поля заполнены"); return; }
+
+                var rooms = await new RoomService().GetRoom(DayPicker.Items[DayPicker.SelectedIndex], TimeBox.Text);
                 labelMessage.Text = rooms[0] + " " + rooms[1];
             }
         }
@@ -138,6 +151,7 @@ namespace TimeTableKGU.Views
         void picker_SelectedIndexChanged(object sender, EventArgs e)
         {
             header.Text = "Вы выбрали: " ;
+            header.TextColor= Color.Black;
             if (picker.Items[picker.SelectedIndex] == "Поиск преподавателя по ФИО")
             {
                 labelMessage.Text = "";

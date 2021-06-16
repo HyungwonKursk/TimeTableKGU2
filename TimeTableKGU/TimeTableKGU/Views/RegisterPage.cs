@@ -43,7 +43,7 @@ namespace TimeTableKGU.Views
                     new ColumnDefinition { Width = 250 },
                 }
                 };
-                label = new Label { Text = "Согласие на обработку персональных данных"};
+                label = new Label { Text = "Согласие на обработку персональных данных", TextColor = Color.Black };
 
                 grid.Children.Add(checkBox,0,0);
                 grid.Children.Add(label, 1, 0);
@@ -67,13 +67,13 @@ namespace TimeTableKGU.Views
                     Style = Device.Styles.BodyStyle,
                     HorizontalOptions = LayoutOptions.Fill
                 };
-                TypePick = new Picker { Title = "Должность", TextColor = Color.Black };
+                TypePick = new Picker { Title = "Должность", TextColor = Color.Black, Style = Device.Styles.BodyStyle};
                 TypePick.Items.Add("Студент");
                 TypePick.Items.Add("Преподаватель");
+                TypePick.Focus();
+                GroupPick = new Picker { Title = "Группа", TextColor = Color.Black, Style = Device.Styles.BodyStyle, BackgroundColor = Color.Aqua, };
 
-                GroupPick = new Picker { Title = "Группа", TextColor = Color.Black };
-
-                SubPick = new Picker { Title = "Подгруппа", TextColor = Color.Black };
+                SubPick = new Picker { Title = "Подгруппа", TextColor = Color.Black, Style = Device.Styles.BodyStyle, BackgroundColor = Color.Aqua};
                 SubPick.Items.Add("1");
                 SubPick.Items.Add("2");
 

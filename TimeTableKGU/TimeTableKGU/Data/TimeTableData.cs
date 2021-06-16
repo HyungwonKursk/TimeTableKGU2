@@ -10,5 +10,7 @@ namespace TimeTableKGU.Data
             TimeTables = new List<TimeTable>();
             
         }
+
+
     }
 }

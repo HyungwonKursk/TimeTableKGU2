@@ -22,11 +22,13 @@ namespace TimeTableKGU.Views
             {
                 NameLab = new Label
                 {
+                    TextColor = Color.Black,
                     Style = Device.Styles.TitleStyle,
                     HorizontalOptions = LayoutOptions.CenterAndExpand,
                 };
                 GroupLab = new Label
                 {
+                    TextColor = Color.Black,
                     Style = Device.Styles.TitleStyle,
                     HorizontalOptions = LayoutOptions.CenterAndExpand,
                 };

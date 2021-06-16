@@ -12,7 +12,7 @@ namespace TimeTableKGU.Web
     public static class WebData
     {
         // адрес серверной части информационной системы
-        public const string ADRESS = "http://servertime.site/";
+        public const string ADRESS = "https://servertime.site/";
 
         // проверка подключения к веб сервису
         public async static Task<bool> CheckConnection()

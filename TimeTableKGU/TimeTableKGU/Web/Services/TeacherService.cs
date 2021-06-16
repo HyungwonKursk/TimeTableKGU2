@@ -13,6 +13,7 @@ namespace TimeTableKGU.Web.Services
     {
         const string Url = WebData.ADRESS + "";
 
+
         public async Task<List<TeacherBD>> GetTeachers()
         {
             HttpClient client = WebData.GetClient();

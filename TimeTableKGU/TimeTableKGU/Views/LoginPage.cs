@@ -31,6 +31,7 @@ namespace TimeTableKGU.Views
                 TitleLab = new Label
                 {
                     Text = "Вход",
+                   
                     Style = Device.Styles.TitleStyle,
                     HorizontalOptions = LayoutOptions.Center,
                 };

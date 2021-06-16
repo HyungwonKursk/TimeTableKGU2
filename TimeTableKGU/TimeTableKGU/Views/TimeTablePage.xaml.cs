@@ -146,6 +146,8 @@ namespace TimeTableKGU.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            if (ClientControls.CurrentUser == null || ClientControls.CurrentUser == "") 
+                return;
             OnAlertYesNoClicked(this, new EventArgs());
 
         }
@@ -183,16 +185,17 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center,TextColor=Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
                         timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                     if (timetables.Room_Number == 0)
@@ -203,11 +206,11 @@ namespace TimeTableKGU.Views
                         }
                         catch 
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     
                     x++;
                     y++; x = 0;
@@ -223,17 +226,18 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
                         timetables.Name_Group,
-                        
+                        TextColor = Color.Black
+
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                     if (timetables.Room_Number == 0)
@@ -244,12 +248,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
                        
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
 
                     x++;
                     y++; x = 0;
@@ -264,17 +268,17 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
                         timetables.Name_Group,
-                        //HorizontalTextAlignment = TextAlignment.Center
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                      if (timetables.Room_Number == 0)
@@ -285,12 +289,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
                        
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -304,16 +308,17 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time ,HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                     if (timetables.Room_Number == 0)
@@ -324,12 +329,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
                        
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -343,16 +348,17 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                          if (timetables.Room_Number == 0)
@@ -363,12 +369,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
                         
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -382,16 +388,17 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                                if (timetables.Room_Number == 0)
@@ -402,12 +409,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
                        
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -428,17 +435,18 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group, 
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
 
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                                if (timetables.Room_Number == 0)
@@ -449,12 +457,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
 
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -469,17 +477,18 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
 
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                                if (timetables.Room_Number == 0)
@@ -490,12 +499,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
 
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -509,17 +518,18 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
 
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                                if (timetables.Room_Number == 0)
@@ -530,12 +540,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
 
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }
@@ -549,17 +559,18 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
 
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                                if (timetables.Room_Number == 0)
@@ -570,12 +581,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
 
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
 
                     x++;
                     y++; x = 0;
@@ -590,17 +601,18 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time,HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
 
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                                if (timetables.Room_Number == 0)
@@ -611,12 +623,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
 
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
 
                     x++;
                     y++; x = 0;
@@ -631,16 +643,17 @@ namespace TimeTableKGU.Views
                 y++;
                 foreach (TimeTable timetables in Day)
                 {
-                    grid.Children.Add(new Label { Text = timetables.Time }, x, y);
+                    grid.Children.Add(new Label { Text = timetables.Time, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     grid.Children.Add(new Label
                     {
                         Text = timetables.Subject + " " +
-                        timetables.Name_Group
+                        timetables.Name_Group,
+                        TextColor = Color.Black
                     }, x, y);
                     x++;
                     if (timetables.Room_Number == -1)
-                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = "Занятие отменено", HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     else
 
                                if (timetables.Room_Number == 0)
@@ -651,12 +664,12 @@ namespace TimeTableKGU.Views
                         }
                         catch
                         {
-                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                            grid.Children.Add(new Label { Text = timetables.Link, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                         }
 
                     }
                     else
-                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center }, x, y);
+                        grid.Children.Add(new Label { Text = Convert.ToString(timetables.Room_Number), HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x, y);
                     x++;
                     y++; x = 0;
                 }

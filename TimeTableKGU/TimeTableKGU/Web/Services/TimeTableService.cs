@@ -14,10 +14,10 @@ namespace TimeTableKGU.Web.Services
 
 
         // получаем расписание для студента
-        public async Task<List<TimeTable>> GetStudentTimeTable(int? group, int? subgroup,int? id)
+        public async Task<List<TimeTable>> GetStudentTimeTable(int? group, int? subgroup, int? id)
         {
             HttpClient client = WebData.GetClient();
-            string result = await client.GetStringAsync(Url + group + "/" + subgroup+"/"+id);
+            string result = await client.GetStringAsync(Url + group + "/" + subgroup + "/" + id);
             return JsonConvert.DeserializeObject<List<TimeTable>>(result);
         }
         // получаем расписание для преподавателя
@@ -29,17 +29,17 @@ namespace TimeTableKGU.Web.Services
         }
 
         // изменяем аудиторию
-        public async Task<bool> ChangeRoom(int id_lesson,int new_room)
+        public async Task<bool> ChangeRoom(int id_lesson, int new_room)
         {
             HttpClient client = WebData.GetClient();
-            string result = await client.GetStringAsync(Url + "changel/"+ id_lesson +"/"+ new_room);
+            string result = await client.GetStringAsync(Url + "changel/" + id_lesson + "/" + new_room);
             return JsonConvert.DeserializeObject<bool>(result);
         }
         // были ли изменения
         public async Task<bool> GetChanges(int? id_user, string type)
         {
             HttpClient client = WebData.GetClient();
-            string result = await client.GetStringAsync(Url + "check/" + id_user + "/" +type);
+            string result = await client.GetStringAsync(Url + "check/" + id_user + "/" + type);
             return JsonConvert.DeserializeObject<bool>(result);
         }
     }

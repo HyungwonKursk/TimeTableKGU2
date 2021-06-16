@@ -38,17 +38,20 @@
                     <Label FontSize="16"
                            HorizontalTextAlignment="Center"
                            Text="Мобильное расписание КГУ" 
+                           TextColor="Black"
                            FontAttributes="Bold"/>
                     
                     <Label x:Name="Description" 
                            Margin="0,20,0,0"
                            FontSize="16"
+                           TextColor="Black"
                            HorizontalTextAlignment="Center"
                            Text= "Цель данного приложения - обеспечение возможности быстрого и комфортного доступа к раписанию для студентов и преподавателей КГУ."
                            VerticalOptions="Center" 
                            HorizontalOptions="CenterAndExpand" 
                            FontAttributes="Bold"/>
                     <Label 
+                        TextColor="Black"
                            Text="Разработчики:&#10;Клиентская часть: Романцова Анастасия Олеговна&#10;Серверная часть: Иванова Анастасия Вадимовна" 
                            />
 

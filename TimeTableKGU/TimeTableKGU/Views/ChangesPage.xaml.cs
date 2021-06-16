@@ -28,7 +28,8 @@ namespace TimeTableKGU.Views
             InitializeComponent();
             labelMessage = new Label
             {
-                Text="Для отмены занятия введите аудиторию 0"
+                TextColor = Color.Black,
+                Text ="Для отмены занятия введите аудиторию 0"
             };
             nameBox = new Entry
             {
@@ -75,7 +76,7 @@ namespace TimeTableKGU.Views
                 HorizontalOptions = LayoutOptions.Fill
             };
             changeBtn = new Button { Text = "Изменить" };
-            DayPicker = new Picker { Items = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" } };
+            DayPicker = new Picker { BackgroundColor=Color.Aqua, Items = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" } };
             SetContent();
             changeBtn.Clicked += ChangeBtn_Clicked;
         }

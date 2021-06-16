@@ -11,6 +11,7 @@ namespace TimeTableKGU.DataBase
     public static class DbService
     {
         private static ApplicationContext db = new ApplicationContext();
+
         /// <summary>
         /// Обновление базы данных
         /// </summary>

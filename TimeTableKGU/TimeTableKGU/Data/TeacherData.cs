@@ -11,5 +11,6 @@ namespace TimeTableKGU.Data
         {
             Teachers = new List<Teacher>();
         }
+
     }
 }
