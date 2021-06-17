@@ -72,7 +72,7 @@ namespace TimeTableKGU.Views
                 Style = Device.Styles.BodyStyle,
                 HorizontalOptions = LayoutOptions.Fill
             };
-            DayPicker = new Picker { BackgroundColor=Color.Aqua, Items = {"Понедельник","Вторник","Среда","Четверг","Пятница","Суббота" },TextColor = Color.Black, };
+            DayPicker = new Picker {  Items = {"Понедельник","Вторник","Среда","Четверг","Пятница","Суббота" },TextColor = Color.Black, BackgroundColor = Color.FromHex("#4682B4") };
 
             FindBtn.Clicked += FindBtn_ClickedAsync;
             

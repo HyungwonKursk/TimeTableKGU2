@@ -76,7 +76,7 @@ namespace TimeTableKGU.Views
                 HorizontalOptions = LayoutOptions.Fill
             };
             changeBtn = new Button { Text = "Изменить" };
-            DayPicker = new Picker { BackgroundColor=Color.Aqua, Items = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" } };
+            DayPicker = new Picker { BackgroundColor = Color.FromHex("#4682B4"), Items = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" } };
             SetContent();
             changeBtn.Clicked += ChangeBtn_Clicked;
         }

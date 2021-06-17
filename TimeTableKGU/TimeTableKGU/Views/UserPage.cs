@@ -16,6 +16,8 @@ namespace TimeTableKGU.Views
             public Label GroupLab { get; set; } // группа или кафедра
             public Button SettingBtn { get; set; } //кнопка показать список группы или добавить ссылку
             public Button LoginOutBtn { get; set; }
+            public Button ChangeBtn { get; set; }
+            public Label HeadLab { get; set; }
             public static string CurrentUser { get; set; }
 
             public ClientControls()
@@ -32,6 +34,13 @@ namespace TimeTableKGU.Views
                     Style = Device.Styles.TitleStyle,
                     HorizontalOptions = LayoutOptions.CenterAndExpand,
                 };
+                HeadLab = new Label
+                {
+                    Text="",
+                    TextColor = Color.Black,
+                    Style = Device.Styles.TitleStyle,
+                    HorizontalOptions = LayoutOptions.CenterAndExpand,
+                };
                 SettingBtn = new Button
                 {
 
@@ -41,6 +50,13 @@ namespace TimeTableKGU.Views
                 LoginOutBtn = new Button
                 {
                     Text = "Выйти из учётной записи",
+
+                    TextColor = Color.Black,
+                    BorderColor = Color.Black,
+                };
+                ChangeBtn = new Button
+                {
+                    Text = "Редактировать данные профиля",
 
                     TextColor = Color.Black,
                     BorderColor = Color.Black,
@@ -74,6 +90,8 @@ namespace TimeTableKGU.Views
                 Title = student[0].Login;
                 ClientPage.NameLab.Text = "ФИО: " + student[0].Full_Name;
                 ClientPage.GroupLab.Text = "Группа: " + Convert.ToString(student[0].Group) + "." + Convert.ToString(student[0].Subgroup);
+                if (student[0].Group_Leader == true)
+                    ClientPage.HeadLab.Text = "Староста группы";
                 ClientPage.SettingBtn.Text = "Список группы";
             }
             else
@@ -90,13 +108,17 @@ namespace TimeTableKGU.Views
             RegisrationPage = null;
 
             ClientPage.LoginOutBtn.Clicked += GoLoginPage;
+            ClientPage.ChangeBtn.Clicked += ChangeBtn_Clicked;
 
             StackLayout stackLayout = new StackLayout();
             stackLayout.Margin = 20;
 
             stackLayout.Children.Add(ClientPage.NameLab);
             stackLayout.Children.Add(ClientPage.GroupLab);
+            if (ClientControls.CurrentUser == "Студент" && ClientPage.HeadLab.Text != "")
+                stackLayout.Children.Add(ClientPage.HeadLab);
             stackLayout.Children.Add(ClientPage.SettingBtn);
+            stackLayout.Children.Add(ClientPage.ChangeBtn);
 
             stackLayout.Children.Add(ClientPage.LoginOutBtn);
 
@@ -119,6 +141,13 @@ namespace TimeTableKGU.Views
 
             #endregion
         }
+
+        private async void ChangeBtn_Clicked(object sender, EventArgs e)
+        {
+            
+                await Navigation.PushAsync(new UserChangesPage());
+        }
+
         public void GoLoginPage(object sender, EventArgs args)
         {
             this.ToolbarItems.Clear();

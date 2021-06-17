@@ -38,6 +38,8 @@
 
     <Compile Remove="Views\NewItemPage.xaml.cs" />
 
+    <Compile Remove="Views\Page1.xaml.cs" />
+
     <Compile Remove="Views\UserPage.xaml.cs" />
 
     <Compile Remove="Web\Services\ChangeService.cs" />
@@ -45,6 +47,8 @@
     <Compile Remove="Web\Services\LinkService.cs" />
 
     <Compile Remove="Web\Services\StudentGroupService.cs" />
+
+    <Compile Remove="Web\Services\TryService.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +56,7 @@
     <EmbeddedResource Remove="Views\ItemsPage.xaml" />
     <EmbeddedResource Remove="Views\LoginPage.xaml" />
     <EmbeddedResource Remove="Views\NewItemPage.xaml" />
+    <EmbeddedResource Remove="Views\Page1.xaml" />
     <EmbeddedResource Remove="Views\UserPage.xaml" />
   </ItemGroup>
 
@@ -84,13 +89,13 @@
     <EmbeddedResource Update="Views\LinkPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Page1.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\SearchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\TimeTablePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\UserChangesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

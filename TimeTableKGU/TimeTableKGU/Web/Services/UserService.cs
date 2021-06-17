@@ -27,12 +27,12 @@ namespace TimeTableKGU.Web.Services
             string result = await client.GetStringAsync(Url + "registerapi/author/student/" + login + "/" + pass);
             return JsonConvert.DeserializeObject<Student>(result);
         }
-        public async Task<Teacher> RegisterTeacher(string login, string pass, string pos,
+        public async Task<Teacher> RegisterTeacher(string login, string pass, 
             string depart, string name)
         {
             HttpClient client = WebData.GetClient();
-            string result = await client.GetStringAsync(Url + "registerapi/regTeach/" + login + "/" + pass + "/" +
-                pos + "/" + depart + "/" + name);
+            string result = await client.GetStringAsync(Url + "registerapi/regTeach/" + login + "/" + pass + 
+                 "/" + depart + "/" + name);
             return JsonConvert.DeserializeObject<Teacher>(result);
         }
         public async Task<Teacher> AuthrizationTeacher(string login, string pass)

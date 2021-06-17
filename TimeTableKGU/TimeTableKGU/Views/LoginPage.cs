@@ -158,6 +158,17 @@ namespace TimeTableKGU.Views
                         break;
                     }
                 }
+                if (id == 0)
+                {
+                    for (int i = 0; i < teachers.Count; i++)
+                    {
+                        if (teachers[i].full_name == userTeacher.Full_Name)
+                        {
+                            id = teachers[i].id_t;
+                            break;
+                        }
+                    }
+                }
                 var timetable = await new TimeTableService().GetTeacherTimeTable(id);
                 TimeTableData.TimeTables = timetable;
                 DbService.AddTimeTable(timetable);
