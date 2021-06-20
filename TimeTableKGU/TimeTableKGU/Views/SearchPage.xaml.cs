@@ -15,6 +15,8 @@ namespace TimeTableKGU.Views
     {
         public Label labelMessage { get; set; }
         public Label labelMessage2 { get; set; }
+        public Label NameLab { get; set; }
+        public Label TimeLab { get; set; }
         public Label labelText{ get; set; }
         public Entry NameBox { get; set; }
         public Entry TimeBox { get; set; }
@@ -46,14 +48,13 @@ namespace TimeTableKGU.Views
                 FontSize = 18,
                 Text="Выберите день недели из списка",
                 Style = Device.Styles.TitleStyle,
-                HorizontalOptions = LayoutOptions.Center,
                 TextColor = Color.Black
             };
 
             NameBox = new Entry
             {
                 Text = "",
-                Placeholder="Введите ФИО преподавателя",
+                Placeholder="ФИО",
                 Keyboard = Keyboard.Default,
                 TextColor = Color.Black,
                 PlaceholderColor = Color.Black,
@@ -61,10 +62,24 @@ namespace TimeTableKGU.Views
                 Style = Device.Styles.BodyStyle,
                 HorizontalOptions = LayoutOptions.Fill
             };
+            NameLab = new Label
+            {
+                Text = "Введите ФИО преподавателя:",
+                TextColor=Color.Black,
+                Style = Device.Styles.BodyStyle,
+                HorizontalOptions = LayoutOptions.Fill
+            };
+            TimeLab = new Label
+            {
+                Text = "",
+                TextColor = Color.Black,
+                Style = Device.Styles.BodyStyle,
+                HorizontalOptions = LayoutOptions.Fill
+            };
             TimeBox = new Entry
             {
                 Text = "",
-                Placeholder ="Введите время ЧЧ:ММ",
+                Placeholder ="ЧЧ:ММ",
                 Keyboard = Keyboard.Default,
                 TextColor = Color.Black,
                 PlaceholderColor = Color.Black,
@@ -88,10 +103,12 @@ namespace TimeTableKGU.Views
             }
 
             labelMessage.Text = "";
-            if (picker.Items[picker.SelectedIndex] == "Поиск преподавателя по ФИО")
+            if (picker.Items[picker.SelectedIndex] == "1. Поиск преподавателя по ФИО")
             {
-                if (DayPicker.SelectedIndex == -1 || TimeBox.Text == "" || NameBox.Text == "")
+                if (DayPicker.SelectedIndex == -1  || NameBox.Text == "")
                 { DependencyService.Get<IToast>().Show("Не все поля заполнены"); return; }
+                if (TimeBox.Text == "")
+                    TimeBox.Text = "0";
                 var teachers = await new TeacherService().GetTeachers();
                 int id = 0;
                 string name;
@@ -132,13 +149,13 @@ namespace TimeTableKGU.Views
                 
                 var rooms = await new TeacherService().SearchTeacher(id, DayPicker.Items[DayPicker.SelectedIndex], TimeBox.Text);
                 labelMessage.Text = ""; labelMessage2.Text = "";
-                if (rooms[0] == "") labelMessage.Text += "Числитель: Преподаватель на кафедре или его нет в университете";
+                if (rooms[0] == "Числитель: ") labelMessage.Text += "Числитель: Преподаватель на кафедре или его нет в университете";
                 else labelMessage.Text += rooms[0];
-                if (rooms[1] == "") labelMessage2.Text += "Знаменатель: Преподаватель на кафедре или его нет в университете";
+                if (rooms[1] == "Знаменатель: ") labelMessage2.Text += "Знаменатель: Преподаватель на кафедре или его нет в университете";
                 else labelMessage2.Text += rooms[1];
 
             }
-            if (picker.Items[picker.SelectedIndex] == "Поиск свободной аудитории по времени")
+            if (picker.Items[picker.SelectedIndex] == "2. Поиск свободной аудитории по времени")
             {
                 if (DayPicker.SelectedIndex == -1 || TimeBox.Text == "")
                 { DependencyService.Get<IToast>().Show("Не все поля заполнены"); return; }
@@ -152,10 +169,11 @@ namespace TimeTableKGU.Views
         {
             header.Text = "Вы выбрали: " ;
             header.TextColor= Color.Black;
-            if (picker.Items[picker.SelectedIndex] == "Поиск преподавателя по ФИО")
+            if (picker.Items[picker.SelectedIndex] == "1. Поиск преподавателя по ФИО")
             {
                 labelMessage.Text = "";
                 labelMessage2.Text = "";
+                stackLayout.Children.Remove(TimeLab);
                 stackLayout.Children.Remove(FindBtn);
                 stackLayout.Children.Remove(labelMessage2);
                 stackLayout.Children.Remove(labelMessage);
@@ -165,8 +183,11 @@ namespace TimeTableKGU.Views
 
                 NameBox.Text = "";
                 TimeBox.Text = "";
+                TimeLab.Text = "Введите время, если время не будет введено, то будет показа информация на весь день";
 
+                stackLayout.Children.Add(NameLab);
                 stackLayout.Children.Add(NameBox);
+                stackLayout.Children.Add(TimeLab);
                 stackLayout.Children.Add(TimeBox);
                 stackLayout.Children.Add(labelText);
                 stackLayout.Children.Add(DayPicker);
@@ -174,11 +195,13 @@ namespace TimeTableKGU.Views
 
 
             }
-            if (picker.Items[picker.SelectedIndex] == "Поиск свободной аудитории по времени")
+            if (picker.Items[picker.SelectedIndex] == "2. Поиск свободной аудитории по времени")
             {
                 labelMessage.Text = "";
                 labelMessage2.Text = "";
+                stackLayout.Children.Remove(NameLab);
                 stackLayout.Children.Remove(FindBtn);
+                stackLayout.Children.Remove(TimeLab);
                 stackLayout.Children.Remove(labelMessage);
                 stackLayout.Children.Remove(labelMessage2);
                 stackLayout.Children.Remove(NameBox);
@@ -186,7 +209,9 @@ namespace TimeTableKGU.Views
                 stackLayout.Children.Remove(labelText);
                 stackLayout.Children.Remove(DayPicker);
 
+                TimeLab.Text = "Введите время:";
                 TimeBox.Text = "";
+                stackLayout.Children.Add(TimeLab);
                 stackLayout.Children.Add(TimeBox);
                 stackLayout.Children.Add(labelText);
                 stackLayout.Children.Add(DayPicker);
@@ -195,6 +220,7 @@ namespace TimeTableKGU.Views
             stackLayout.Children.Add(FindBtn);
             stackLayout.Children.Add(labelMessage);
             stackLayout.Children.Add(labelMessage2);
+            stackLayout.Spacing = 6;
             this.Content = new ScrollView
             {
                 Content = stackLayout

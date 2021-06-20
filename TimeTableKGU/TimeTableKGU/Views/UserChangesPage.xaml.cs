@@ -108,6 +108,10 @@ namespace TimeTableKGU.Views
 
         private async void ChangeBtn_Clicked(object sender, EventArgs e)
         {
+            if (PasswBox.Text != PasswCheckBox.Text)
+            {
+                DependencyService.Get<IToast>().Show("Введённые пароли не совпадают"); return;
+            }
             if (ClientControls.CurrentUser == "Студент")
             {
                 if ( NameBox.Text.IndexOf('.') != -1 || LoginBox.Text.IndexOf('.') != -1

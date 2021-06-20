@@ -17,12 +17,7 @@ namespace TimeTableKGU.Views
     public partial class TimeTablePage : ContentPage
     {
         Grid grid;
-        public Button Mon { get; set; }
-        public Button Tue { get; set; }
-        public Button Wed { get; set; }
-        public Button Thu { get; set; }
-        public Button Fri { get; set; }
-        public Button Sat { get; set; }
+        
         public Button Update { get; set; }
         public Button Change { get; set; }
         public static string Type { get; set; }
@@ -62,12 +57,7 @@ namespace TimeTableKGU.Views
                 
                 
             };
-            Mon = new Button { Text = "ПОНЕДЕЛЬНИК" };
-            Tue = new Button { Text = "ВТОРНИК" };
-            Wed = new Button { Text = "СРЕДА" };
-            Thu = new Button { Text = "ЧЕТВЕРГ" };
-            Fri = new Button { Text = "ПЯТНИЦА" };
-            Sat = new Button { Text = "СУББОТА" };
+            
             Update = new Button { Text = "Обновить расписание" };
             Change = new Button { Text = "Внести изменения" };
 
@@ -85,12 +75,17 @@ namespace TimeTableKGU.Views
             bool answer = false;
 
             if (ClientControls.CurrentUser == "") return;
-
-            if (ClientControls.CurrentUser == "Студент")
-                 changes = await new TimeTableService().GetChanges(StudentData.Students[0].StudentId,"S");
-            else
-                changes = await new TimeTableService().GetChanges(TeacherData.Teachers[0].TeacherId, "T");
-
+            try
+            {
+                if (ClientControls.CurrentUser == "Студент")
+                    changes = await new TimeTableService().GetChanges(StudentData.Students[0].StudentId, "S");
+                else
+                    changes = await new TimeTableService().GetChanges(TeacherData.Teachers[0].TeacherId, "T");
+            }
+            catch
+            {
+                return;
+            }
             if (changes)
                 answer = await DisplayAlert("Question?", "Были внесены изменения.Обновить расписание", "Да", "Нет");
 
@@ -111,19 +106,8 @@ namespace TimeTableKGU.Views
             if (ClientControls.CurrentUser == "Преподаватель")
             {
                 var teacher = DbService.LoadAllTeacher();
-                var teachers = await new TeacherService().GetTeachers();
-                int id = 0;
-                var st = teacher[0].Full_Name.Split(' ');
-                string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
-                for (int i = 0; i < teachers.Count; i++)
-                {
-                    if (teachers[i].full_name == name)
-                    {
-                        id = teachers[i].id_t;
-                        break;
-                    }
-                }
-                timeTables = await new TimeTableService().GetTeacherTimeTable(id);
+                
+                timeTables = await new TimeTableService().GetTeacherTimeTable(teacher[0].TeacherId);
 
                 
                 DbService.AddTimeTable(timeTables);
@@ -177,7 +161,7 @@ namespace TimeTableKGU.Views
                 grid.Children.Clear();
 
                 #region Понедельник
-                grid.Children.Add(Mon, x + 1, y);
+                grid.Children.Add(new Label { Text="ПОНЕДЕЛЬНИК",FontAttributes=FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center , TextColor = Color.Black }, x + 1, y);
                 var Day = from timatable in TimeTableData.TimeTables
                           where timatable.Parity == "Числитель"
                           where timatable.Week_day == "Понедельник"
@@ -218,7 +202,7 @@ namespace TimeTableKGU.Views
                 #endregion
 
                 #region Вторник
-                grid.Children.Add(Tue, x + 1, y);
+                grid.Children.Add(new Label { Text = "ВТОРНИК",  FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Числитель"
                       where timatable.Week_day == "Вторник"
@@ -260,7 +244,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Среда
-                grid.Children.Add(Wed, x + 1, y);
+                grid.Children.Add(new Label { Text = "СРЕДА", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Числитель"
                       where timatable.Week_day == "Среда"
@@ -300,7 +284,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Четверг
-                grid.Children.Add(Thu, x + 1, y);
+                grid.Children.Add(new Label { Text = "ЧЕТВЕРГ", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Числитель"
                       where timatable.Week_day == "Четверг"
@@ -340,7 +324,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Пятница
-                grid.Children.Add(Fri, x + 1, y);
+                grid.Children.Add(new Label { Text = "ПЯТНИЦА", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Числитель"
                       where timatable.Week_day == "Пятница"
@@ -380,7 +364,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Суббота
-                grid.Children.Add(Sat, x + 1, y);
+                grid.Children.Add(new Label { Text = "СУББОТА", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Числитель"
                       where timatable.Week_day == "Суббота"
@@ -427,7 +411,7 @@ namespace TimeTableKGU.Views
                 grid.Children.Clear();
                 Type = "Знаменатель";
                 #region Понедельник
-                grid.Children.Add(Mon, x + 1, y);
+                grid.Children.Add(new Label { Text = "ПОНЕДЕЛЬНИК", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 var Day = from timatable in TimeTableData.TimeTables
                           where timatable.Parity == "Знаменатель"
                           where timatable.Week_day == "Понедельник"
@@ -469,7 +453,7 @@ namespace TimeTableKGU.Views
                 #endregion
 
                 #region Вторник
-                grid.Children.Add(Tue, x + 1, y);
+                grid.Children.Add(new Label { Text = "ВТОРНИК", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Знаменатель"
                       where timatable.Week_day == "Вторник"
@@ -510,7 +494,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Среда
-                grid.Children.Add(Wed, x + 1, y);
+                grid.Children.Add(new Label { Text = "СРЕДА", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Знаменатель"
                       where timatable.Week_day == "Среда"
@@ -551,7 +535,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Четверг
-                grid.Children.Add(Thu, x + 1, y);
+                grid.Children.Add(new Label { Text = "ЧЕТВЕРГ", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Знаменатель"
                       where timatable.Week_day == "Четверг"
@@ -593,7 +577,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Пятница
-                grid.Children.Add(Fri, x + 1, y);
+                grid.Children.Add(new Label { Text = "ПЯТНИЦА", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Знаменатель"
                       where timatable.Week_day == "Пятница"
@@ -635,7 +619,7 @@ namespace TimeTableKGU.Views
                 }
                 #endregion
                 #region Суббота
-                grid.Children.Add(Sat, x + 1, y);
+                grid.Children.Add(new Label { Text = "СУББОТА", FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, TextColor = Color.Black }, x + 1, y);
                 Day = from timatable in TimeTableData.TimeTables
                       where timatable.Parity == "Знаменатель"
                       where timatable.Week_day == "Суббота"

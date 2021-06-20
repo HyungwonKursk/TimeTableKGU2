@@ -9,6 +9,7 @@ using TimeTableKGU.Models;
 using TimeTableKGU.Web.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using TimeTableKGU.DataBase;
 
 namespace TimeTableKGU.Views
 {
@@ -55,39 +56,19 @@ namespace TimeTableKGU.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            int id = 0;
-            var teachers = await new TeacherService().GetTeachers();
-            var st = TeacherData.Teachers[0].Full_Name.Split(' ');
-            string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
-            for (int i = 0; i < teachers.Count; i++)
+            try
             {
-                if (teachers[i].full_name == name)
-                {
-                    id = teachers[i].id_t;
-                    break;
-                }
+                var teachers = DbService.LoadAllTeacher();
+                var answer = await new PrivateLinkService().PutLink(teachers[0].TeacherId, new Link(LinkBox.Text, Convert.ToInt32(GroupBox.Text)));
+                if (answer)
+                    DependencyService.Get<IToast>().Show("Ссылка добавлена");
+                else
+                    DependencyService.Get<IToast>().Show("Произошла ошибка. Повторите запрос позже");
             }
-            if (id == 0)
+            catch
             {
-                for (int i = 0; i < teachers.Count; i++)
-                {
-                    if (teachers[i].full_name == TeacherData.Teachers[0].Full_Name)
-                    {
-                        id = teachers[i].id_t;
-                        break;
-                    }
-                }
-                if (id == 0)
-                {
-                    DependencyService.Get<IToast>().Show("Что-то пошло не так");
-                    return;
-                }
+                DependencyService.Get<IToast>().Show("Произошла ошибка. Возможно в базе нет расписания группы. Повторите запрос позже");
             }
-            var answer = await new PrivateLinkService().PutLink(id,new Link(LinkBox.Text, Convert.ToInt32(GroupBox.Text)));
-            if (answer)
-                DependencyService.Get<IToast>().Show("Ссылка добавлена");
-            else
-                DependencyService.Get<IToast>().Show("Произошла ошибка. Повторите запрос позже");
         }
     }
 }

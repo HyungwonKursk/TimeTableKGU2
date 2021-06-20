@@ -5,10 +5,10 @@
     <ContentPage.Content>
         <StackLayout x:Name="stackLayout">
             <Label x:Name="header" Text="Выберите параметр поиска" FontSize="Large" TextColor="Black"/>
-            <Picker x:Name="picker" SelectedIndexChanged="picker_SelectedIndexChanged">
+            <Picker x:Name="picker" SelectedIndexChanged="picker_SelectedIndexChanged" BackgroundColor="#4682B4">
                 <Picker.Items>
-                    <x:String>Поиск преподавателя по ФИО</x:String>
-                    <x:String>Поиск свободной аудитории по времени</x:String>
+                    <x:String>1. Поиск преподавателя по ФИО</x:String>
+                    <x:String>2. Поиск свободной аудитории по времени</x:String>
                 </Picker.Items>
             </Picker>
         </StackLayout>

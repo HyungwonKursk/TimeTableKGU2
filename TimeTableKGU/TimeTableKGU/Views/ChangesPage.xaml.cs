@@ -29,7 +29,7 @@ namespace TimeTableKGU.Views
             labelMessage = new Label
             {
                 TextColor = Color.Black,
-                Text ="Для отмены занятия введите аудиторию 0"
+                Text ="Для отмены занятия введите аудиторию -1. Для перевода занятия в online введите аудиторию 0"
             };
             nameBox = new Entry
             {
@@ -83,38 +83,50 @@ namespace TimeTableKGU.Views
 
         private async void ChangeBtn_Clicked(object sender, EventArgs e)
         {
-            int room;
+            
             
             if (nameBox.Text == "" || timeBox.Text == "" || DayPicker.SelectedIndex==-1 || roomBox.Text=="")
             {
                 DependencyService.Get<IToast>().Show("Не все поля заполнены"); return;
             }
 
-            if (ClientControls.CurrentUser != "Преподаватель" && roomBox.Text == "0")
+            if (ClientControls.CurrentUser != "Преподаватель" && roomBox.Text == "-1")
             {
                 DependencyService.Get<IToast>().Show("У Вас нет прав для отмены занятия"); 
                 return;
             }
 
-            if (roomBox.Text == "0")
-                room = -1;
-            else
-                room = Convert.ToInt32(roomBox.Text);
+            int room = Convert.ToInt32(roomBox.Text);
 
             TimeTablePage tt = new TimeTablePage();
             bool isChange = false;
 
             for (int i = 0; i < TimeTableData.TimeTables.Count; i++)
             {
-                if (TimeTableData.TimeTables[i].Subject == nameBox.Text &&
-                    TimeTableData.TimeTables[i].Time == timeBox.Text &&
-                    TimeTableData.TimeTables[i].Week_day == DayPicker.Items[DayPicker.SelectedIndex] &&
+                var t=TimeTableData.TimeTables[i].Time.Split('-');
+
+                if (ClientControls.CurrentUser == "Преподаватель")
+                    if (TimeTableData.TimeTables[i].Subject == nameBox.Text)
+                    if( t[0] == timeBox.Text  )
+                        if(TimeTableData.TimeTables[i].Week_day == DayPicker.Items[DayPicker.SelectedIndex] &&
                     TimeTableData.TimeTables[i].Parity == TimeTablePage.Type)
                 {
                     isChange = await new TimeTableService().ChangeRoom(TimeTableData.TimeTables[i].TimeTableId,
                         room);
                     break;
                 }
+
+                if (ClientControls.CurrentUser != "Преподаватель")
+                    if (TimeTableData.TimeTables[i].Subject == nameBox.Text && 
+                        TimeTableData.TimeTables[i].Name_Group == teacherBox.Text)
+                        if (t[0] == timeBox.Text)
+                            if (TimeTableData.TimeTables[i].Week_day == DayPicker.Items[DayPicker.SelectedIndex] &&
+                        TimeTableData.TimeTables[i].Parity == TimeTablePage.Type)
+                            {
+                                isChange = await new TimeTableService().ChangeRoom(TimeTableData.TimeTables[i].TimeTableId,
+                                    room);
+                                break;
+                            }
             }
             if (isChange)
             {

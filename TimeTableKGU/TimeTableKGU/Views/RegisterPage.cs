@@ -326,30 +326,8 @@ namespace TimeTableKGU.Views
                 // если сервер вернул данные пользователя - загрузить в пользователя
                 if (user != null)
                 {
-                    var teachers = await new TeacherService().GetTeachers();
-                    int id = 0;
-                    var st = user.Full_Name.Split(' ');
-                    string name = st[0] + " " + st[1][0] + ". " + st[2][0] + ".";
-                    for (int i = 0; i < teachers.Count; i++)
-                    {
-                        if (teachers[i].full_name == name)
-                        {
-                            id = teachers[i].id_t;
-                            break;
-                        }
-                    }
-                    if (id == 0)
-                    {
-                        for (int i = 0; i < teachers.Count; i++)
-                        {
-                            if (teachers[i].full_name == user.Full_Name)
-                            {
-                                id = teachers[i].id_t;
-                                break;
-                            }
-                        }
-                    }
-                        var timetable = await new TimeTableService().GetTeacherTimeTable(id);
+                    
+                    var timetable = await new TimeTableService().GetTeacherTimeTable(user.TeacherId);
                     TimeTableData.TimeTables = timetable;
                     DbService.AddTimeTable(timetable);
                     DbService.AddTeacher(user); // сохранили пользователя
