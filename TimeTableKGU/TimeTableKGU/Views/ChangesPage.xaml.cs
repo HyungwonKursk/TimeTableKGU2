@@ -90,7 +90,7 @@ namespace TimeTableKGU.Views
                 DependencyService.Get<IToast>().Show("Не все поля заполнены"); return;
             }
 
-            if (ClientControls.CurrentUser != "Преподаватель" && roomBox.Text == "-1")
+            if (ClientControls.CurrentUser != "Преподаватель" && roomBox.Text == "-1" )
             {
                 DependencyService.Get<IToast>().Show("У Вас нет прав для отмены занятия"); 
                 return;

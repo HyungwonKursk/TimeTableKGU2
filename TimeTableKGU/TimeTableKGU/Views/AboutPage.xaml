@@ -59,7 +59,6 @@
                             Text="Техподдержка" 
                             Command="{Binding HelpCommand}"
                             CommandParameter="https://vk.com/progksu"
-                            BackgroundColor="Gray"
                             TextColor="White" />
                 </StackLayout>
             </ScrollView>

@@ -58,8 +58,8 @@ namespace TimeTableKGU.Views
                 
             };
             
-            Update = new Button { Text = "Обновить расписание" };
-            Change = new Button { Text = "Внести изменения" };
+            Update = new Button { Text = "Обновить данные" };
+            Change = new Button { Text = "Поменять аудиторию" };
 
             Update.Clicked += Update_Clicked;
             Change.Clicked += Change_ClickedAsync;
@@ -71,6 +71,8 @@ namespace TimeTableKGU.Views
         }
         async void OnAlertYesNoClicked(object sender, EventArgs e)
         {
+            
+
             bool changes = false;
             bool answer = false;
 
@@ -91,6 +93,7 @@ namespace TimeTableKGU.Views
 
             if (answer)
                 Update_Clicked(this, new EventArgs());
+           
         }
         private async void Change_ClickedAsync(object sender, EventArgs e)
         {
@@ -122,7 +125,7 @@ namespace TimeTableKGU.Views
                 TimeTableData.TimeTables = timeTables;
 
             }
-            DependencyService.Get<IToast>().Show("Изменения выполнены");
+            DependencyService.Get<IToast>().Show("Данные расписания обновлены");
             
             picker_SelectedIndexChanged(this, new EventArgs());
         }
@@ -130,14 +133,25 @@ namespace TimeTableKGU.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (ClientControls.CurrentUser == null || ClientControls.CurrentUser == "") 
-                return;
+           
+            if (ClientControls.CurrentUser == null || ClientControls.CurrentUser == "")
+            {  
+                picker.SelectedIndex = -1;
+                return; 
+            }
+
+            if (ClientControls.IsChange == true)
+            {
+                grid.Children.Clear();
+                picker.SelectedIndex = -1;
+            }
             OnAlertYesNoClicked(this, new EventArgs());
 
         }
 
         void picker_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ClientControls.IsChange = false;
             if (ClientControls.CurrentUser == null || ClientControls.CurrentUser == "")
             {
                 DependencyService.Get<IToast>().Show("Авторизируйтесь в системе");
@@ -150,8 +164,8 @@ namespace TimeTableKGU.Views
 
             if (picker.SelectedIndex == -1)
             {
-                if (Type == "")
-                    DependencyService.Get<IToast>().Show("Ошибка");
+                if (Type == "" || Type == null)
+                    return;
             }
             else
 

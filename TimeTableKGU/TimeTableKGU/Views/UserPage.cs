@@ -19,9 +19,11 @@ namespace TimeTableKGU.Views
             public Button ChangeBtn { get; set; }
             public Label HeadLab { get; set; }
             public static string CurrentUser { get; set; }
+            public static bool IsChange { get; set; }
 
             public ClientControls()
             {
+               
                 NameLab = new Label
                 {
                     TextColor = Color.Black,
@@ -167,6 +169,7 @@ namespace TimeTableKGU.Views
                 }
 
             ClientControls.CurrentUser = "";
+            ClientControls.IsChange = true;
             var tt = DbService.LoadAllTimeTable();
             DbService.RemoveTimeTable(tt);
             TimeTablePage.Type = "";

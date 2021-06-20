@@ -45,7 +45,6 @@ namespace TimeTableKGU.Views
             };
             labelText = new Label
             {
-                FontSize = 18,
                 Text="Выберите день недели из списка",
                 Style = Device.Styles.TitleStyle,
                 TextColor = Color.Black
@@ -146,13 +145,20 @@ namespace TimeTableKGU.Views
                         return;
                     }
                 }
-                
-                var rooms = await new TeacherService().SearchTeacher(id, DayPicker.Items[DayPicker.SelectedIndex], TimeBox.Text);
-                labelMessage.Text = ""; labelMessage2.Text = "";
-                if (rooms[0] == "Числитель: ") labelMessage.Text += "Числитель: Преподаватель на кафедре или его нет в университете";
-                else labelMessage.Text += rooms[0];
-                if (rooms[1] == "Знаменатель: ") labelMessage2.Text += "Знаменатель: Преподаватель на кафедре или его нет в университете";
-                else labelMessage2.Text += rooms[1];
+                try
+                {
+                    var rooms = await new TeacherService().SearchTeacher(id, DayPicker.Items[DayPicker.SelectedIndex], TimeBox.Text);
+                    labelMessage.Text = ""; labelMessage2.Text = "";
+                    if (rooms[0] == "Числитель: ") labelMessage.Text += "Числитель: Преподаватель на кафедре или его нет в университете";
+                    else labelMessage.Text += rooms[0];
+                    if (rooms[1] == "Знаменатель: ") labelMessage2.Text += "Знаменатель: Преподаватель на кафедре или его нет в университете";
+                    else labelMessage2.Text += rooms[1];
+                }
+                catch
+                {
+                    DependencyService.Get<IToast>().Show("Не верно введено время");
+                    return;
+                }
 
             }
             if (picker.Items[picker.SelectedIndex] == "2. Поиск свободной аудитории по времени")
@@ -160,8 +166,16 @@ namespace TimeTableKGU.Views
                 if (DayPicker.SelectedIndex == -1 || TimeBox.Text == "")
                 { DependencyService.Get<IToast>().Show("Не все поля заполнены"); return; }
 
-                var rooms = await new RoomService().GetRoom(DayPicker.Items[DayPicker.SelectedIndex], TimeBox.Text);
-                labelMessage.Text = rooms[0] + " " + rooms[1];
+                try
+                {
+                    var rooms = await new RoomService().GetRoom(DayPicker.Items[DayPicker.SelectedIndex], TimeBox.Text);
+                    labelMessage.Text = rooms[0] + " " + rooms[1];
+                }
+                catch
+                {
+                    DependencyService.Get<IToast>().Show("Не верно введено время");
+                    return;
+                }
             }
         }
 
