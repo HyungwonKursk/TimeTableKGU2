@@ -135,7 +135,8 @@ namespace TimeTableKGU.Views
             base.OnAppearing();
            
             if (ClientControls.CurrentUser == null || ClientControls.CurrentUser == "")
-            {  
+            {
+                grid.Children.Clear();
                 picker.SelectedIndex = -1;
                 return; 
             }

@@ -45,6 +45,7 @@ namespace TimeTableKGU.Views
             };
             labelText = new Label
             {
+                FontSize = 14,
                 Text="Выберите день недели из списка",
                 Style = Device.Styles.TitleStyle,
                 TextColor = Color.Black

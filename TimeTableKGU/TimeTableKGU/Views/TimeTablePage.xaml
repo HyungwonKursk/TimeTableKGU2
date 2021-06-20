@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <StackLayout x:Name="stackLayout">
             <Frame BackgroundColor="#2196F3" Padding="12" CornerRadius="0">
-                <Picker x:Name="picker" TextColor="White" SelectedIndexChanged="picker_SelectedIndexChanged">
+                <Picker x:Name="picker" Title="Выберите чётность недели" TextColor="White" SelectedIndexChanged="picker_SelectedIndexChanged">
                     <Picker.Items>
                         <x:String>Числитель</x:String>
                         <x:String>Знаменатель</x:String>

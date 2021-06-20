@@ -66,7 +66,7 @@ namespace TimeTableKGU.Views
                     Style = Device.Styles.BodyStyle,
                     HorizontalOptions = LayoutOptions.Fill
                 };
-                TypePick = new Picker { Title = "Должность", TextColor = Color.Black, Style = Device.Styles.BodyStyle, BackgroundColor = Color.FromHex("#4682B4") };
+                TypePick = new Picker { Title = "Тип пользователя", TextColor = Color.Black, Style = Device.Styles.BodyStyle, BackgroundColor = Color.FromHex("#4682B4") };
                 TypePick.Items.Add("Студент");
                 TypePick.Items.Add("Преподаватель");
                 TypePick.Focus();

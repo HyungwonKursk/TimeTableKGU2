@@ -33,7 +33,7 @@ namespace TimeTableKGU.Views
             NameBox = new Entry
             {
                 Text = "",
-                Placeholder = "ФИО пользователя",
+                Placeholder = "ФИО",
                 Keyboard = Keyboard.Default,
                 TextColor = Color.Black,
                 PlaceholderColor = Color.Black,
@@ -102,6 +102,7 @@ namespace TimeTableKGU.Views
                 TextColor = Color.Black,
                 BorderColor = Color.Black,
             };
+            Title = "Редактирование профиля";
             ChangeBtn.Clicked += ChangeBtn_Clicked;
             SetPage();
         }
@@ -176,15 +177,20 @@ namespace TimeTableKGU.Views
                     red_teacher.Position = dbteacher[0].Position;
                 if (red_teacher.Department == "")
                     red_teacher.Department = dbteacher[0].Department;
+                try
+                {
+                    var teacher = await new ChangeInfoService().ChangeTeacher(dbteacher[0].TeacherId, red_teacher.Login,
+                       red_teacher.Password, red_teacher.Department, red_teacher.Full_Name);
 
-                var teacher = await new ChangeInfoService().ChangeTeacher(dbteacher[0].TeacherId, red_teacher.Login,
-                   red_teacher.Password, red_teacher.Department, red_teacher.Full_Name);
-               
-                DbService.RemoveTeacher(dbteacher[0]);
-                DbService.AddTeacher(teacher);
-                dbteacher = DbService.LoadAllTeacher();
-                TeacherData.Teachers = dbteacher;
-
+                    DbService.RemoveTeacher(dbteacher[0]);
+                    DbService.AddTeacher(teacher);
+                    dbteacher = DbService.LoadAllTeacher();
+                    TeacherData.Teachers = dbteacher;
+                }
+                catch
+                {
+                    DependencyService.Get<IToast>().Show("Что-то пошло не так.Изменения не были выполнены");
+                }
             }
             DependencyService.Get<IToast>().Show("Изменения выполнены");
         }
@@ -192,9 +198,14 @@ namespace TimeTableKGU.Views
         public async void SetPage()
         {
             StackLayout stackLayout = new StackLayout();
+
+            stackLayout.Children.Add(new Label {Text="Введите ФИО",TextColor=Color.Black });
             stackLayout.Children.Add(NameBox);
+            stackLayout.Children.Add(new Label { Text = "Введите логин", TextColor = Color.Black });
             stackLayout.Children.Add(LoginBox);
+            stackLayout.Children.Add(new Label { Text = "Введите пароль", TextColor = Color.Black });
             stackLayout.Children.Add(PasswBox);
+            stackLayout.Children.Add(new Label { Text = "Введите пароль ещё раз", TextColor = Color.Black });
             stackLayout.Children.Add(PasswCheckBox);
             if (ClientControls.CurrentUser == "Студент")
             {
@@ -202,13 +213,15 @@ namespace TimeTableKGU.Views
 
                 for (int i = 0; i < group.Count; i++)
                     GroupPick.Items.Add(group[i].ToString());
-
+                stackLayout.Children.Add(new Label { Text = "Выберите номер группы", TextColor = Color.Black });
                 stackLayout.Children.Add(GroupPick);
+                stackLayout.Children.Add(new Label { Text = "Выберите номер подгруппы", TextColor = Color.Black });
                 stackLayout.Children.Add(SubPick);
 
             }
             if (ClientControls.CurrentUser == "Преподаватель")
-            {    
+            {
+                stackLayout.Children.Add(new Label { Text = "Введите название кафедры", TextColor = Color.Black });
                 stackLayout.Children.Add(DepartBox);
                 
             }
